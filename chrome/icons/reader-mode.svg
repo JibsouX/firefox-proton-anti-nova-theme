@@ -1,0 +1,50 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="context-fill #5b5b66" fill-opacity="context-fill-opacity">
+<style>
+<![CDATA[
+  :root {
+    color: #5b5b66;
+    fill: context-fill #5b5b66;
+  }
+  path:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  circle:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  rect:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  polygon:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]) {
+    fill: context-fill #5b5b66;
+  }
+  :root[stroke],
+  path[stroke]:not([stroke*="#"]):not([stroke="none"]),
+  circle[stroke]:not([stroke*="#"]):not([stroke="none"]),
+  rect[stroke]:not([stroke*="#"]):not([stroke="none"]) {
+    stroke: context-stroke #5b5b66;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color: #fbfbfe;
+      fill: context-fill #fbfbfe;
+    }
+    path:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    circle:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    rect:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    polygon:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]) {
+      fill: context-fill #fbfbfe;
+    }
+    :root[stroke],
+    path[stroke]:not([stroke*="#"]):not([stroke="none"]),
+    circle[stroke]:not([stroke*="#"]):not([stroke="none"]),
+    rect[stroke]:not([stroke*="#"]):not([stroke="none"]) {
+      stroke: context-stroke #fbfbfe;
+    }
+  }
+]]>
+</style>
+
+<g class="proton">
+  <path d="M4 1a2 2 0 0 0-2 2l0 10a2 2 0 0 0 2 2l8 0a2 2 0 0 0 2-2l0-10a2 2 0 0 0-2-2L4 1zm8.75 12.15-.6.6-8.3 0-.6-.6 0-10.3.6-.6 8.3 0 .6.6 0 10.3z"/>
+  <path d="m10.125 5.25-4.25 0a.625.625 0 0 1 0-1.25l4.25 0a.625.625 0 0 1 0 1.25z"/>
+  <path d="m10.125 8.25-4.25 0a.625.625 0 0 1 0-1.25l4.25 0a.625.625 0 0 1 0 1.25z"/>
+  <path d="m8.125 11.25-2.25 0a.625.625 0 0 1 0-1.25l2.25 0a.625.625 0 0 1 0 1.25z"/>
+</g>
+</svg>

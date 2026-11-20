@@ -1,0 +1,49 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="context-fill #5b5b66" fill-opacity="context-fill-opacity">
+<style>
+<![CDATA[
+  :root {
+    color: #5b5b66;
+    fill: context-fill #5b5b66;
+  }
+  path:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  circle:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  rect:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  polygon:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]) {
+    fill: context-fill #5b5b66;
+  }
+  :root[stroke],
+  path[stroke]:not([stroke*="#"]):not([stroke="none"]),
+  circle[stroke]:not([stroke*="#"]):not([stroke="none"]),
+  rect[stroke]:not([stroke*="#"]):not([stroke="none"]) {
+    stroke: context-stroke #5b5b66;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color: #fbfbfe;
+      fill: context-fill #fbfbfe;
+    }
+    path:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    circle:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    rect:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    polygon:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]) {
+      fill: context-fill #fbfbfe;
+    }
+    :root[stroke],
+    path[stroke]:not([stroke*="#"]):not([stroke="none"]),
+    circle[stroke]:not([stroke*="#"]):not([stroke="none"]),
+    rect[stroke]:not([stroke*="#"]):not([stroke="none"]) {
+      stroke: context-stroke #fbfbfe;
+    }
+  }
+]]>
+</style>
+
+<g class="proton">
+  <path fill="context-fill" d="M8.25,4c-1.05-0.45-1.95-0.6-3.3-0.45C2.3,4,0.9,6.3,0.9,9c0,2.95,2.4,7,4.9,7c0.8,0,1.95-0.6,2.2-0.6
+  c0.25,0,1.4,0.6,2.2,0.6c2.5,0,4.9-4.2,4.9-7c0-2.95-1.6-5.4-4.9-5.4C9.5,3.55,8.9,3.75,8.25,4z M5.85,0c0.55,0.1,1.6,0.45,2.05,1.15
+  c0.45,0.7,0.25,1.8,0.1,2.3c-0.6-0.1-1.6-0.35-2.05-1.15C5.5,1.6,5.7,0.55,5.85,0L5.85,0z"/>
+</g>
+</svg>

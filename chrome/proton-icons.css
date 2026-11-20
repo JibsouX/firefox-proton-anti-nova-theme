@@ -1,0 +1,437 @@
+/* ==========================================================================
+   PROTON ICONS FOR FIREFOX (Replaces Nova SVGs with pure Proton graphics)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Toolbar & Navigation Buttons (Primary & Customization Palette)
+   -------------------------------------------------------------------------- */
+#back-button,
+#back-button .toolbarbutton-icon {
+  list-style-image: url("icons/back.svg") !important;
+}
+
+#forward-button,
+#forward-button .toolbarbutton-icon {
+  list-style-image: url("icons/forward.svg") !important;
+}
+
+#reload-button,
+#reload-button .toolbarbutton-icon,
+#reload-button .toolbarbutton-animatable-image {
+  list-style-image: url("icons/reload.svg") !important;
+}
+
+#stop-button,
+#stop-button .toolbarbutton-icon,
+#stop-button .toolbarbutton-animatable-image {
+  list-style-image: url("icons/close.svg") !important;
+}
+
+#home-button,
+#home-button .toolbarbutton-icon {
+  list-style-image: url("icons/home.svg") !important;
+}
+
+#bookmarks-menu-button,
+#bookmarks-menu-button .toolbarbutton-icon {
+  list-style-image: url("icons/bookmark-star-on-tray.svg") !important;
+}
+
+#bookmarks-toolbar-button,
+#bookmarks-toolbar-placeholder {
+  list-style-image: url("icons/bookmarks-toolbar.svg") !important;
+}
+
+#history-panelmenu,
+#history-panelmenu .toolbarbutton-icon {
+  list-style-image: url("icons/history.svg") !important;
+}
+
+#downloads-indicator-icon,
+#customization-palette #downloads-button,
+#wrapper-downloads-button > #downloads-button {
+  list-style-image: url("icons/downloads.svg") !important;
+}
+
+#save-page-button,
+#save-page-button .toolbarbutton-icon {
+  list-style-image: url("icons/save.svg") !important;
+}
+
+#open-file-button,
+#open-file-button .toolbarbutton-icon {
+  list-style-image: url("icons/open.svg") !important;
+}
+
+#screenshot-button,
+#screenshot-button .toolbarbutton-icon {
+  list-style-image: url("icons/screenshot.svg") !important;
+}
+
+#characterencoding-button,
+#characterencoding-button .toolbarbutton-icon {
+  list-style-image: url("icons/characterEncoding.svg") !important;
+}
+
+#send-tab-button,
+#send-tab-button .toolbarbutton-icon {
+  list-style-image: url("icons/send-tab.svg") !important;
+}
+
+#email-link-button,
+#email-link-button .toolbarbutton-icon {
+  list-style-image: url("icons/mail.svg") !important;
+}
+
+#logins-button,
+#logins-button .toolbarbutton-icon {
+  list-style-image: url("icons/login.svg") !important;
+}
+
+#share-tab-button,
+#share-tab-button .toolbarbutton-icon {
+  list-style-image: url("icons/share.svg") !important;
+}
+
+#sync-button,
+#sync-button .toolbarbutton-icon {
+  list-style-image: url("icons/synced-tabs.svg") !important;
+}
+
+#print-button,
+#print-button .toolbarbutton-icon {
+  list-style-image: url("icons/print.svg") !important;
+}
+
+#find-button,
+#find-button .toolbarbutton-icon {
+  list-style-image: url("icons/search-glass.svg") !important;
+}
+
+#new-window-button,
+#new-window-button .toolbarbutton-icon {
+  list-style-image: url("icons/window.svg") !important;
+}
+
+#privatebrowsing-button,
+#privatebrowsing-button .toolbarbutton-icon {
+  list-style-image: url("icons/privateBrowsing.svg") !important;
+}
+
+.private-browsing-indicator-icon {
+  list-style-image: url("icons/pbm-logo.svg") !important;
+}
+
+#fullscreen-button,
+#fullscreen-button .toolbarbutton-icon {
+  list-style-image: url("icons/fullscreen.svg") !important;
+}
+
+#developer-button,
+#developer-button .toolbarbutton-icon {
+  list-style-image: url("icons/developer.svg") !important;
+}
+
+#preferences-button,
+#preferences-button .toolbarbutton-icon,
+#appMenu-preferences-button,
+#appMenu-preferences-button .toolbarbutton-icon {
+  list-style-image: url("icons/settings.svg") !important;
+}
+
+#library-button,
+#library-button .toolbarbutton-icon {
+  list-style-image: url("icons/library.svg") !important;
+}
+
+#import-button,
+#import-button .toolbarbutton-icon {
+  list-style-image: url("icons/import.svg") !important;
+}
+
+:root:not([fxastatus="signedin"]) #fxa-toolbar-menu-button,
+:root:not([fxastatus="signedin"]) #fxa-toolbar-menu-button .toolbarbutton-icon {
+  list-style-image: url("icons/avatar-empty.svg") !important;
+}
+
+#mini-window-button,
+#mini-window-button .toolbarbutton-icon {
+  list-style-image: url("icons/mini-window.svg") !important;
+}
+
+#tab-groups-button,
+#tab-groups-button .toolbarbutton-icon {
+  list-style-image: url("icons/tab-groups.svg") !important;
+}
+
+#cut-button,
+#cut-button .toolbarbutton-icon {
+  list-style-image: url("icons/edit-cut.svg") !important;
+}
+
+#copy-button,
+#copy-button .toolbarbutton-icon {
+  list-style-image: url("icons/edit-copy.svg") !important;
+}
+
+#paste-button,
+#paste-button .toolbarbutton-icon {
+  list-style-image: url("icons/edit-paste.svg") !important;
+}
+
+#zoom-out-button,
+#zoom-out-button .toolbarbutton-icon {
+  list-style-image: url("icons/minus.svg") !important;
+}
+
+#zoom-in-button,
+#zoom-in-button .toolbarbutton-icon {
+  list-style-image: url("icons/plus.svg") !important;
+}
+
+#nav-bar-overflow-button,
+#nav-bar-overflow-button .toolbarbutton-icon {
+  list-style-image: url("icons/chevron.svg") !important;
+}
+
+#unified-extensions-button,
+#unified-extensions-button .toolbarbutton-icon {
+  list-style-image: url("icons/extension.svg") !important;
+}
+
+#PanelUI-menu-button,
+#PanelUI-menu-button .toolbarbutton-icon {
+  list-style-image: url("icons/menu.svg") !important;
+}
+
+#panic-button,
+#panic-button .toolbarbutton-icon {
+  list-style-image: url("icons/forget.svg") !important;
+}
+
+#fire-button,
+#fire-button .toolbarbutton-icon {
+  list-style-image: url("icons/flame.svg") !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. Sidebar Toggle Button (All States: Collapsed, Expanded, RTL/PositionEnd)
+   -------------------------------------------------------------------------- */
+#sidebar-button,
+#sidebar-button .toolbarbutton-icon,
+#sidebar-button > .toolbarbutton-badge-stack > .toolbarbutton-icon {
+  list-style-image: url("icons/sidebar-collapsed.svg") !important;
+}
+
+#sidebar-button[expanded],
+#sidebar-button[expanded] .toolbarbutton-icon,
+#sidebar-button[expanded] > .toolbarbutton-badge-stack > .toolbarbutton-icon {
+  list-style-image: url("icons/sidebar-expanded.svg") !important;
+}
+
+#sidebar-button:-moz-locale-dir(ltr)[sidebar-positionend],
+#sidebar-button:-moz-locale-dir(ltr)[sidebar-positionend] .toolbarbutton-icon,
+#sidebar-button:-moz-locale-dir(ltr)[sidebar-positionend] > .toolbarbutton-badge-stack > .toolbarbutton-icon,
+#sidebar-button:-moz-locale-dir(rtl):not([sidebar-positionend]),
+#sidebar-button:-moz-locale-dir(rtl):not([sidebar-positionend]) .toolbarbutton-icon,
+#sidebar-button:-moz-locale-dir(rtl):not([sidebar-positionend]) > .toolbarbutton-badge-stack > .toolbarbutton-icon {
+  list-style-image: url("icons/sidebar-collapsed-right.svg") !important;
+}
+
+#sidebar-button[expanded]:-moz-locale-dir(ltr)[sidebar-positionend],
+#sidebar-button[expanded]:-moz-locale-dir(ltr)[sidebar-positionend] .toolbarbutton-icon,
+#sidebar-button[expanded]:-moz-locale-dir(ltr)[sidebar-positionend] > .toolbarbutton-badge-stack > .toolbarbutton-icon,
+#sidebar-button[expanded]:-moz-locale-dir(rtl):not([sidebar-positionend]),
+#sidebar-button[expanded]:-moz-locale-dir(rtl):not([sidebar-positionend]) .toolbarbutton-icon,
+#sidebar-button[expanded]:-moz-locale-dir(rtl):not([sidebar-positionend]) > .toolbarbutton-badge-stack > .toolbarbutton-icon {
+  list-style-image: url("icons/sidebar-expanded-right.svg") !important;
+}
+
+#sidebar-reverse-button,
+#sidebar-reverse-button .toolbarbutton-icon {
+  list-style-image: url("icons/sidebar-expanded.svg") !important;
+}
+
+#sidebar-switcher-arrow {
+  list-style-image: url("icons/arrow-down-12.svg") !important;
+}
+
+#sidebar-box[sidebarcommand="viewBookmarksSidebar"] > #sidebar-header > #sidebar-switcher-target > #sidebar-icon {
+  list-style-image: url("icons/bookmark.svg") !important;
+}
+
+#sidebar-box[sidebarcommand="viewHistorySidebar"] > #sidebar-header > #sidebar-switcher-target > #sidebar-icon {
+  list-style-image: url("icons/history.svg") !important;
+}
+
+#sidebar-box[sidebarcommand="viewTabsSidebar"] > #sidebar-header > #sidebar-switcher-target > #sidebar-icon {
+  list-style-image: url("icons/synced-tabs.svg") !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Tabs & Tab Strip
+   -------------------------------------------------------------------------- */
+#tabs-newtab-button,
+#new-tab-button,
+#tabs-newtab-button .toolbarbutton-icon,
+#new-tab-button .toolbarbutton-icon,
+#vertical-tabs-newtab-button,
+#vertical-tabs-newtab-button .toolbarbutton-icon {
+  list-style-image: url("icons/plus.svg") !important;
+}
+
+.tabbrowser-tab .tab-close-button,
+.all-tabs-close-button {
+  list-style-image: url("icons/close-12.svg") !important;
+}
+
+#alltabs-button,
+#alltabs-button .toolbarbutton-icon {
+  list-style-image: url("icons/search-tabs.svg") !important;
+}
+
+#firefox-view-button,
+#firefox-view-button .toolbarbutton-icon {
+  list-style-image: url("icons/firefox-view.svg") !important;
+}
+
+.tab-audio-playing-icon {
+  list-style-image: url("icons/tab-audio-playing-small.svg") !important;
+}
+
+.tab-audio-muted-icon {
+  list-style-image: url("icons/tab-audio-muted-small.svg") !important;
+}
+
+.tab-audio-blocked-icon {
+  list-style-image: url("icons/tab-audio-blocked-small.svg") !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. Address Bar, Search Bar & UrlbarView Results
+   -------------------------------------------------------------------------- */
+#star-button,
+#pageAction-panel-bookmark {
+  list-style-image: url("icons/bookmark-hollow.svg") !important;
+}
+
+#star-button[starred],
+#pageAction-panel-bookmark[starred] {
+  list-style-image: url("icons/bookmark.svg") !important;
+}
+
+#pageActionButton,
+#pageActionButton .toolbarbutton-icon {
+  list-style-image: url("icons/more.svg") !important;
+}
+
+#urlbar-search-mode-indicator-close,
+.searchmode-switcher-close {
+  background-image: url("icons/close.svg") !important;
+}
+
+.urlbar-go-button,
+.search-go-button {
+  list-style-image: url("icons/forward.svg") !important;
+}
+
+.searchbar-engine-image {
+  list-style-image: url("icons/defaultFavicon.svg") !important;
+}
+
+#urlbar-revert-button {
+  list-style-image: url("icons/urlbar-revert.svg") !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  #urlbar-revert-button {
+    list-style-image: url("icons/urlbar-revert-dark.svg") !important;
+  }
+}
+
+:root:is([privatebrowsingmode], [lwt-toolbar="dark"], [lwtheme-brighttext]) #urlbar-revert-button {
+  list-style-image: url("icons/urlbar-revert-dark.svg") !important;
+}
+
+:root:is([lwt-toolbar="light"], [lwtheme-brighttext="false"]) #urlbar-revert-button {
+  list-style-image: url("icons/urlbar-revert.svg") !important;
+}
+
+.search-setting-button > .button-box > .button-icon {
+  list-style-image: url("icons/settings.svg") !important;
+}
+
+.searchmode-switcher-dropmarker {
+  list-style-image: url("icons/arrow-down-12.svg") !important;
+}
+
+/* UrlbarView sources, one-offs & result menu */
+.urlbarView-row[source="bookmarks"] > .urlbarView-row-inner > .urlbarView-favicon,
+#urlbar-engine-one-off-item-bookmarks {
+  list-style-image: url("icons/bookmark.svg") !important;
+}
+
+.urlbarView-row[source="tabs"] > .urlbarView-row-inner > .urlbarView-favicon,
+#urlbar-engine-one-off-item-tabs {
+  list-style-image: url("icons/tab.svg") !important;
+}
+
+.urlbarView-row[source="history"] > .urlbarView-row-inner > .urlbarView-favicon,
+#urlbar-engine-one-off-item-history {
+  list-style-image: url("icons/history.svg") !important;
+}
+
+.urlbarView-row[source="actions"] > .urlbarView-row-inner > .urlbarView-favicon,
+#urlbar-engine-one-off-item-actions {
+  list-style-image: url("icons/lightning-bolt.svg") !important;
+}
+
+.urlbarView-button-result-menu {
+  background-image: url("icons/more.svg") !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Findbar
+   -------------------------------------------------------------------------- */
+.findbar-find-previous {
+  list-style-image: url("icons/arrow-up.svg") !important;
+}
+
+.findbar-find-next {
+  list-style-image: url("icons/arrow-down.svg") !important;
+}
+
+.findbar-closebutton {
+  list-style-image: url("icons/close.svg") !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Menus, Popups & Context Menus
+   -------------------------------------------------------------------------- */
+menupopup menuitem[checked="true"] > .menu-iconic-left > .menu-iconic-icon {
+  list-style-image: url("icons/check.svg") !important;
+}
+
+menupopup menu > .menu-right {
+  list-style-image: url("icons/arrow-right-12.svg") !important;
+}
+
+.PanelUI-subView .subviewbutton-nav::after,
+.widget-overflow-list .subviewbutton-nav::after,
+#protections-popup-mainView .subviewbutton-nav::after {
+  content: url("icons/arrow-right.svg") !important;
+  fill: currentColor !important;
+}
+
+.PanelUI-subView .subviewbutton-nav-down::after {
+  content: url("icons/arrow-down.svg") !important;
+  fill: currentColor !important;
+}
+
+.subviewbutton-back {
+  list-style-image: url("icons/arrow-left.svg") !important;
+}
+
+.toolbarbutton-combined-buttons-dropmarker {
+  list-style-image: url("icons/arrow-down-12.svg") !important;
+}

@@ -1,0 +1,45 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+   <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" fill="context-fill #5b5b66" fill-opacity="context-fill-opacity">
+<style>
+<![CDATA[
+  :root {
+    color: #5b5b66;
+    fill: context-fill #5b5b66;
+  }
+  path:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  circle:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  rect:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  polygon:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]) {
+    fill: context-fill #5b5b66;
+  }
+  :root[stroke],
+  path[stroke]:not([stroke*="#"]):not([stroke="none"]),
+  circle[stroke]:not([stroke*="#"]):not([stroke="none"]),
+  rect[stroke]:not([stroke*="#"]):not([stroke="none"]) {
+    stroke: context-stroke #5b5b66;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color: #fbfbfe;
+      fill: context-fill #fbfbfe;
+    }
+    path:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    circle:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    rect:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    polygon:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]) {
+      fill: context-fill #fbfbfe;
+    }
+    :root[stroke],
+    path[stroke]:not([stroke*="#"]):not([stroke="none"]),
+    circle[stroke]:not([stroke*="#"]):not([stroke="none"]),
+    rect[stroke]:not([stroke*="#"]):not([stroke="none"]) {
+      stroke: context-stroke #fbfbfe;
+    }
+  }
+]]>
+</style>
+
+<g class="proton"><path d="M7 11H3V9.5h4V11z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14 2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h12zM1.5 12a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5V7h-13v5zM2 3.5a.5.5 0 0 0-.5.5v1.5h13V4a.5.5 0 0 0-.5-.5H2z"/></g>
+</svg>

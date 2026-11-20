@@ -1,0 +1,383 @@
+/* ==========================================================================
+   FIREFOX PROTON INTERNAL PAGES (Overrides NOVA in Firefox internal pages)
+   Target: Firefox Profile chrome/userContent.css
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. GLOBAL PROTON TOKENS & ACCENT COLORS (Targeted internal pages only,
+      preserving about:blank, about:reader and chrome://devtools/)
+   -------------------------------------------------------------------------- */
+@-moz-document
+  url-prefix("about:addons"),
+  url-prefix("about:preferences"),
+  url-prefix("about:newtab"),
+  url-prefix("about:home"),
+  url-prefix("about:firefoxview"),
+  url-prefix("about:welcome"),
+  url-prefix("about:privatebrowsing"),
+  url-prefix("about:keyboard"),
+  url-prefix("about:protections"),
+  url-prefix("about:logins"),
+  url-prefix("about:config"),
+  url-prefix("about:support"),
+  url-prefix("about:profiles"),
+  url-prefix("about:downloads"),
+  url-prefix("about:policies"),
+  url-prefix("about:networking"),
+  url-prefix("about:processes"),
+  url-prefix("about:memory"),
+  url-prefix("about:studies"),
+  url-prefix("about:telemetry"),
+  url-prefix("about:crashes"),
+  url-prefix("chrome://mozapps/content/extensions/aboutaddons.html"),
+  url-prefix("chrome://browser/content/firefoxview/firefoxview.html"),
+  url-prefix("chrome://browser/content/customkeys/customkeys.html"),
+  url-prefix("chrome://browser/content/preferences/preferences.xhtml") {
+
+  :root,
+  :root.nova-tokens,
+  html.private {
+    /* Pure White Canvas & Backgrounds (Neutralizes Nova grayish-violet #f7f6fb and pastel gradients) */
+    --background-color-canvas: light-dark(#ffffff, #2b2a33) !important;
+    --background-color-box: light-dark(#ffffff, #2b2a33) !important;
+    --in-content-page-background: light-dark(#ffffff, #2b2a33) !important;
+    --in-content-box-background: light-dark(#ffffff, #2b2a33) !important;
+    --tabpanel-background-color: light-dark(#ffffff, #2b2a33) !important;
+
+    /* Neutralize all Nova gradient tokens across native pages */
+    --toolbox-background-gradient: none !important;
+    --toolbox-background-gradient-leading: transparent !important;
+    --toolbox-background-gradient-trailing: transparent !important;
+    --fxview-background-color: light-dark(#ffffff, #2b2a33) !important;
+    --fxview-background-color-secondary: light-dark(#ffffff, #2b2a33) !important;
+    --newtab-background-color: light-dark(#ffffff, #2b2a33) !important;
+    --newtab-wallpaper: none !important;
+    --newtab-wallpaper-color: transparent !important;
+    --mr-welcome-background-gradient: none !important;
+    --mr-smart-window-background-gradient: none !important;
+
+    /* Proton Accent Colors (Replaces Nova Violet with Proton Blue & Cyan) */
+    --color-accent-primary: light-dark(#0061e0, #00cadb) !important;
+    --color-accent-primary-hover: light-dark(#0250bb, #80ebff) !important;
+    --color-accent-primary-active: light-dark(#054096, #cff5ff) !important;
+    --color-accent-primary-selected: var(--color-accent-primary) !important;
+    --focus-outline-color: var(--color-accent-primary) !important;
+
+    /* Primary buttons, checkboxes, radio buttons, toggles and links */
+    --button-background-color-primary: var(--color-accent-primary) !important;
+    --button-background-color-primary-hover: var(--color-accent-primary-hover) !important;
+    --button-background-color-primary-active: var(--color-accent-primary-active) !important;
+    --button-background-color-primary-disabled: light-dark(rgba(0, 97, 224, 0.4), rgba(0, 202, 219, 0.4)) !important;
+    --button-text-color-primary: light-dark(#ffffff, rgb(43, 42, 51)) !important;
+    --button-border-color-primary: transparent !important;
+    --button-border-color: transparent !important;
+    --link-color: var(--color-accent-primary) !important;
+    --link-color-hover: var(--color-accent-primary-hover) !important;
+    --link-color-active: var(--color-accent-primary-active) !important;
+
+    /* Neutral text & buttons */
+    --text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --button-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --button-background-color: light-dark(rgba(207, 207, 216, 0.33), rgba(0, 0, 0, 0.33)) !important;
+    --button-background-color-hover: light-dark(rgba(207, 207, 216, 0.66), rgba(207, 207, 216, 0.2)) !important;
+    --button-background-color-active: light-dark(rgb(207, 207, 216), rgba(207, 207, 216, 0.4)) !important;
+
+    /* Toggles */
+    --toggle-background-color-pressed: var(--color-accent-primary) !important;
+    --toggle-background-color-pressed-hover: var(--color-accent-primary-hover) !important;
+    --toggle-background-color-pressed-active: var(--color-accent-primary-active) !important;
+    --toggle-dot-background-color: #ffffff !important;
+
+    /* Proton Information & Promo Tokens (Neutralizes Nova Violet -> Proton Blue) */
+    --background-color-information: light-dark(#edf5ff, #1c2438) !important;
+    --icon-color-information: light-dark(#0061e0, #00cadb) !important;
+    --info-bar-border-color: light-dark(rgba(0, 97, 224, 0.25), rgba(0, 202, 219, 0.25)) !important;
+    --icon-color-accent-primary-desaturated: light-dark(#0061e0, #00cadb) !important;
+
+    /* Promo Banners */
+    --promo-background-color-vibrant: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
+    --promo-border-color-vibrant: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
+    --promo-message-text-color-vibrant: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+
+    /* Proton Card Tokens (Neutralizes Nova gray accordion header & restore Proton white card + 1px border) */
+    --card-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    --card-header-background-color: transparent !important;
+    --card-header-background-color-hover: var(--button-background-color-hover) !important;
+    --card-header-background-color-active: var(--button-background-color-active) !important;
+    --card-header-border-color: transparent !important;
+    --card-header-text-color: var(--button-text-color) !important;
+    --card-border-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1)) !important;
+    --card-border: 1px solid var(--card-border-color) !important;
+
+    /* Proton Border Radii */
+    --border-radius-xsmall: 2px !important;
+    --border-radius-small: 4px !important;
+    --border-radius-medium: 8px !important;
+    --border-radius-large: 16px !important;
+    --border-radius-xlarge: 16px !important;
+    --button-border-radius: var(--border-radius-medium, 8px) !important;
+    --card-border-radius: var(--border-radius-medium, 8px) !important;
+    --input-border-radius: var(--border-radius-medium, 8px) !important;
+    --popup-border-radius: var(--border-radius-medium, 8px) !important;
+    --badge-border-radius: var(--border-radius-small, 4px) !important;
+    --page-nav-button-border-radius: var(--border-radius-medium, 8px) !important;
+    --promo-border-radius: var(--border-radius-medium, 8px) !important;
+    --input-search-border-radius: var(--border-radius-medium, 8px) !important;
+  }
+
+  html,
+  body {
+    background-color: light-dark(#ffffff, #2b2a33) !important;
+    background-image: none !important;
+  }
+
+  /* Information Banners & Message Bars across internal pages */
+  taar-notice {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  moz-message-bar,
+  .discopane-notice {
+    --message-bar-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    --message-bar-icon-color: light-dark(#0061e0, #00cadb) !important;
+    --message-bar-icon-background-color: light-dark(#edf5ff, #1c2438) !important;
+    --message-bar-border-color: light-dark(rgba(0, 97, 224, 0.2), rgba(0, 202, 219, 0.2)) !important;
+    --message-bar-border-radius: var(--border-radius-medium, 8px) !important;
+    background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     Composants Web & Shadow DOM Host Elements : Neutralisation des angles Nova
+     Forces Proton 8px/4px sur moz-page-nav-button, moz-button, segmented-control, etc.
+     ------------------------------------------------------------------------ */
+  :is(
+    moz-page-nav-button,
+    moz-page-nav,
+    moz-button,
+    moz-button-group,
+    moz-box-button,
+    moz-box-item,
+    moz-box-link,
+    moz-card,
+    moz-segmented-control,
+    moz-segmented-control-item,
+    moz-input-search,
+    moz-input-text,
+    moz-input-folder,
+    moz-input-color,
+    moz-select,
+    moz-message-bar,
+    moz-promo,
+    moz-badge,
+    panel-item,
+    panel-list,
+    theme-picker,
+    categories-box,
+    theme-card,
+    addon-card,
+    aboutaddons-themes-mode
+  ) {
+    --border-radius-xsmall: 2px !important;
+    --border-radius-small: 4px !important;
+    --border-radius-medium: 8px !important;
+    --border-radius-large: 16px !important;
+    --border-radius-xlarge: 16px !important;
+    --button-border-radius: var(--border-radius-medium, 8px) !important;
+    --page-nav-button-border-radius: var(--border-radius-medium, 8px) !important;
+    --page-nav-button-border-radius-focused: var(--border-radius-small, 4px) !important;
+    --segmented-control-border-radius: calc(var(--button-border-radius, 8px) + var(--focus-outline-width, 2px) + var(--focus-outline-offset, 2px) + var(--border-width, 1px)) !important;
+    --card-border-radius: var(--border-radius-medium, 8px) !important;
+    --input-border-radius: var(--border-radius-medium, 8px) !important;
+    --input-search-border-radius: var(--border-radius-medium, 8px) !important;
+    --panel-menuitem-border-radius: var(--border-radius-small, 4px) !important;
+    --badge-border-radius: var(--border-radius-small, 4px) !important;
+    --promo-border-radius: var(--border-radius-medium, 8px) !important;
+  }
+
+  /* Shadow DOM parts pour les composants Web qui les exposent */
+  :is(moz-button, moz-segmented-control-item, panel-item)::part(button),
+  :is(moz-button, moz-segmented-control-item, panel-item)::part(chevron-button) {
+    border-radius: var(--button-border-radius, 8px) !important;
+  }
+
+  moz-card::part(summary) {
+    background-color: transparent !important;
+    border-radius: var(--card-border-radius, 8px) !important;
+  }
+
+  moz-card::part(summary):hover {
+    background-color: var(--button-background-color-hover) !important;
+  }
+
+  moz-card[expanded]::part(summary) {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  /* Tous boutons, contrôles et cartes natifs dans l'interface */
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  .accessory-button,
+  search-textbox,
+  .addon-card,
+  .theme-card,
+  .category {
+    border-radius: var(--button-border-radius, 8px) !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   1. ABOUT:ADDONS (Extensions & Themes Manager)
+   -------------------------------------------------------------------------- */
+@-moz-document url-prefix("about:addons"), url-prefix("chrome://mozapps/content/extensions/aboutaddons.html") {
+  /* Reset addon card message radii */
+  .addon-card-message,
+  .update-postponed-bar {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    margin: 8px calc(var(--card-padding, 16px) * -1) calc(var(--card-padding, 16px) * -1) !important;
+  }
+
+  addon-card[expanded] .addon-card-message,
+  addon-card[expanded] .update-postponed-bar {
+    border-radius: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Hide promo cards that only apply in Nova */
+  addons-promo,
+  .addons-promo-container {
+    display: none !important;
+  }
+
+  .discopane-notice,
+  moz-message-bar.discopane-notice {
+    margin: 12px 0 !important;
+  }
+
+  /* Replace Nova default theme gradient preview with Proton clean default preview */
+  addon-card[addon-id="default-theme@mozilla.org"] .card-heading-image,
+  .addon-card[addon-id="default-theme@mozilla.org"] .card-heading-image,
+  theme-card[addon-id="default-theme@mozilla.org"] .card-heading-image,
+  .theme-card[data-theme="default-theme"] img.card-heading-image,
+  .theme-card[data-theme="default-theme"] theme-preview img {
+    content: url("chrome://mozapps/content/extensions/default-theme/preview.svg") !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. ABOUT:PREFERENCES (Firefox Settings)
+   -------------------------------------------------------------------------- */
+@-moz-document url-prefix("about:preferences") {
+  /* AI Controls Card (about:preferences#ai) - Neutralizes violet card & Nova illustration */
+  .ai-controls-description,
+  moz-card.ai-controls-description {
+    --ai-controls-description-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    --card-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    --ai-controls-description-image-margin: 0px !important;
+    background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1)) !important;
+  }
+
+  .ai-controls-description > img {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. FIREFOX VIEW (about:firefoxview)
+   -------------------------------------------------------------------------- */
+@-moz-document url-prefix("about:firefoxview"), url-prefix("chrome://browser/content/firefoxview/firefoxview.html") {
+  .sticky-container,
+  #view-content,
+  .main-container {
+    background: light-dark(#ffffff, #2b2a33) !important;
+    background-image: none !important;
+  }
+
+  .header {
+    font-weight: var(--font-weight-heading, 600) !important;
+  }
+
+  .description {
+    margin-block-start: 4px !important;
+  }
+
+  /* Utility button hover states */
+  button.utility-button {
+    --button-background-color-hover: var(--fxview-element-background-hover) !important;
+    --button-background-color-active: var(--fxview-element-background-active) !important;
+    --button-text-color-hover: var(--fxview-text-color-hover) !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. ABOUT:PRIVATEBROWSING
+   -------------------------------------------------------------------------- */
+@-moz-document url-prefix("about:privatebrowsing") {
+  :root,
+  html.private,
+  body {
+    color-scheme: dark !important;
+    background: #2b2a33 !important;
+    background-image: none !important;
+  }
+
+  .search-inner-wrapper {
+    border-radius: 8px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4b. ABOUT:WELCOME
+   -------------------------------------------------------------------------- */
+@-moz-document url-prefix("about:welcome") {
+  .screen,
+  .container {
+    background: light-dark(#ffffff, #2b2a33) !important;
+    background-image: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. ABOUT:NEWTAB & ABOUT:HOME (New Tab Page)
+   -------------------------------------------------------------------------- */
+@-moz-document url-prefix("about:home"), url-prefix("about:newtab") {
+  /* Search bar / handoff */
+  .search-inner-wrapper,
+  .search-handoff-button {
+    border-radius: 8px !important;
+  }
+
+  /* Top sites / shortcuts tiles */
+  .top-site-outer .tile {
+    border-radius: 8px !important;
+  }
+
+  /* Pocket / Recommended stories cards */
+  .card-outer,
+  .ds-card-grid .ds-card {
+    border-radius: 8px !important;
+  }
+
+  /* Context menus & customize popups */
+  .context-menu,
+  .modalOverlay .modal {
+    border-radius: 8px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. ABOUT:KEYBOARD (Raccourcis clavier)
+   -------------------------------------------------------------------------- */
+@-moz-document url-prefix("about:keyboard"), url-prefix("chrome://browser/content/customkeys/customkeys.html") {
+  moz-card,
+  moz-card.category {
+    background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    border: 1px solid var(--card-border-color) !important;
+    border-radius: 8px !important;
+  }
+}

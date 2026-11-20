@@ -1,0 +1,52 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="context-fill #5b5b66" fill-opacity="context-fill-opacity">
+<style>
+<![CDATA[
+  :root {
+    color: #5b5b66;
+    fill: context-fill #5b5b66;
+  }
+  path:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  circle:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  rect:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+  polygon:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]) {
+    fill: context-fill #5b5b66;
+  }
+  :root[stroke],
+  path[stroke]:not([stroke*="#"]):not([stroke="none"]),
+  circle[stroke]:not([stroke*="#"]):not([stroke="none"]),
+  rect[stroke]:not([stroke*="#"]):not([stroke="none"]) {
+    stroke: context-stroke #5b5b66;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color: #fbfbfe;
+      fill: context-fill #fbfbfe;
+    }
+    path:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    circle:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    rect:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]),
+    polygon:not([fill*="#"]):not([fill*="rgb"]):not([fill="none"]) {
+      fill: context-fill #fbfbfe;
+    }
+    :root[stroke],
+    path[stroke]:not([stroke*="#"]):not([stroke="none"]),
+    circle[stroke]:not([stroke*="#"]):not([stroke="none"]),
+    rect[stroke]:not([stroke*="#"]):not([stroke="none"]) {
+      stroke: context-stroke #fbfbfe;
+    }
+  }
+]]>
+</style>
+
+<g class="proton">
+  <path fill="context-fill" fill-rule="evenodd"
+        d="M13.45,10.7H4.7c-0.35,0-0.65,0.25-0.65,0.65s0.25,0.65,0.65,0.65h8.75c0.35,0,0.65-0.25,0.65-0.65
+  C14.25,10.95,13.9,10.7,13.45,10.7z M6.65,15.05c0.65,0,1.35-0.6,1.35-1.35c0-0.65-0.6-1.35-1.35-1.35s-1.35,0.6-1.35,1.35
+  C5.3,14.5,6,15.05,6.65,15.05z M11.95,15.05c0.65,0,1.35-0.6,1.35-1.35c0-0.65-0.6-1.35-1.35-1.35c-0.75,0-1.35,0.6-1.35,1.35
+  C10.7,14.5,11.3,15.05,11.95,15.05z M15.75,3.7L15.75,3.7H3.8V3.6L2.85,1.25C2.7,1.1,2.55,0.95,2.3,0.95H0.35C0,0.95,0,1.25,0,1.45
+  C0,1.75-0.1,2,0.35,2.1h1.35l0.35,0.75l2,6.65c0,0.1,0.1,0.25,0.4,0.25h9.25c0.15,0,0.35-0.1,0.35-0.25L16,4.15C16,4.05,15.9,3.7,15.75,3.7z"/>
+</g>
+</svg>
