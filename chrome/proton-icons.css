@@ -317,7 +317,22 @@
 
 #star-button[starred],
 #pageAction-panel-bookmark[starred] {
-  list-style-image: url("icons/bookmark.svg") !important;
+  list-style-image: url("icons/bookmark-starred.svg") !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  #star-button[starred],
+  #pageAction-panel-bookmark[starred] {
+    list-style-image: url("icons/bookmark-starred-dark.svg") !important;
+  }
+}
+
+:root:is([privatebrowsingmode], [lwt-toolbar="dark"], [lwtheme-brighttext]) :is(#star-button[starred], #pageAction-panel-bookmark[starred]) {
+  list-style-image: url("icons/bookmark-starred-dark.svg") !important;
+}
+
+:root:not([privatebrowsingmode]):is([lwt-toolbar="light"], [lwtheme-brighttext="false"]) :is(#star-button[starred], #pageAction-panel-bookmark[starred]) {
+  list-style-image: url("icons/bookmark-starred.svg") !important;
 }
 
 #pageActionButton,
@@ -330,7 +345,11 @@
   background-image: url("icons/close.svg") !important;
 }
 
-.urlbar-go-button,
+/* urlbar.css uses content for .urlbar-go-button and list-style-image for .search-go-button */
+.urlbar-go-button {
+  content: url("icons/forward.svg") !important;
+}
+
 .search-go-button {
   list-style-image: url("icons/forward.svg") !important;
 }
@@ -353,7 +372,7 @@
   list-style-image: url("icons/urlbar-revert-dark.svg") !important;
 }
 
-:root:is([lwt-toolbar="light"], [lwtheme-brighttext="false"]) #urlbar-revert-button {
+:root:not([privatebrowsingmode]):is([lwt-toolbar="light"], [lwtheme-brighttext="false"]) #urlbar-revert-button {
   list-style-image: url("icons/urlbar-revert.svg") !important;
 }
 
@@ -361,8 +380,9 @@
   list-style-image: url("icons/settings.svg") !important;
 }
 
+/* urlbar.css uses content for .searchmode-switcher-dropmarker */
 .searchmode-switcher-dropmarker {
-  list-style-image: url("icons/arrow-down-12.svg") !important;
+  content: url("icons/arrow-down-12.svg") !important;
 }
 
 /* UrlbarView sources, one-offs & result menu */
@@ -408,7 +428,7 @@
 /* --------------------------------------------------------------------------
    6. Menus, Popups & Context Menus
    -------------------------------------------------------------------------- */
-menupopup menuitem[checked="true"] > .menu-iconic-left > .menu-iconic-icon {
+menupopup menuitem[checked="true"]:not([type="radio"]) > .menu-iconic-left > .menu-iconic-icon {
   list-style-image: url("icons/check.svg") !important;
 }
 
@@ -418,8 +438,17 @@ menupopup menu > .menu-right {
 
 .PanelUI-subView .subviewbutton-nav::after,
 .widget-overflow-list .subviewbutton-nav::after,
-#protections-popup-mainView .subviewbutton-nav::after {
+#protections-popup-mainView .subviewbutton-nav:not(.notFound)::after,
+.tab-preview-add-note.subviewbutton-nav::after {
   content: url("icons/arrow-right.svg") !important;
+  fill: currentColor !important;
+}
+
+.PanelUI-subView .subviewbutton-nav:-moz-locale-dir(rtl)::after,
+.widget-overflow-list .subviewbutton-nav:-moz-locale-dir(rtl)::after,
+#protections-popup-mainView .subviewbutton-nav:not(.notFound):-moz-locale-dir(rtl)::after,
+.tab-preview-add-note.subviewbutton-nav:-moz-locale-dir(rtl)::after {
+  content: url("icons/arrow-left.svg") !important;
   fill: currentColor !important;
 }
 

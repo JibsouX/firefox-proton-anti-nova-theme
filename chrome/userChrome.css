@@ -13,7 +13,7 @@
 /* Color Scheme Synchronization:
    - System auto follows OS dark/light mode
    - Private Browsing & explicit Dark Theme force dark scheme (fixes white navbar in PBM)
-   - Explicit Light Theme forces light scheme */
+   - Explicit Light Theme forces light scheme (excluding Private Browsing windows) */
 :root {
   color-scheme: light dark;
 }
@@ -25,8 +25,8 @@
   color-scheme: dark !important;
 }
 
-:root[lwt-toolbar="light"],
-:root[lwt-toolbar="light"] :is(toolbar, #navigator-toolbox, #nav-bar, #TabsToolbar, #PersonalToolbar, #urlbar, .urlbar, menupopup, panel, .urlbarView) {
+:root[lwt-toolbar="light"]:not([privatebrowsingmode]),
+:root[lwt-toolbar="light"]:not([privatebrowsingmode]) :is(toolbar, #navigator-toolbox, #nav-bar, #TabsToolbar, #PersonalToolbar, #urlbar, .urlbar, menupopup, panel, .urlbarView) {
   color-scheme: light !important;
 }
 
@@ -41,7 +41,7 @@ panel,
 .urlbarView,
 #urlbar,
 .urlbar {
-  /* Proton Accent Colors (Bleu #0061e0 en Clair, Cyan #00cadb/#00ddff en Sombre - PAS le violet Nova) */
+  /* Proton Accent Colors (Blue #0061e0 in Light, Cyan #00cadb/#00ddff in Dark - NOT Nova violet) */
   --color-accent-primary: light-dark(#0061e0, #00cadb) !important;
   --color-accent-primary-hover: light-dark(#0250bb, #80ebff) !important;
   --color-accent-primary-active: light-dark(#054096, #cff5ff) !important;
@@ -414,6 +414,23 @@ panel[type="arrow"] {
   border-radius: var(--button-border-radius, 8px) !important;
 }
 
+/* Nova promos in menus (Help: moz-promo, History/Bookmarks: sync-promo -> Shadow DOM moz-promo) */
+moz-promo,
+sync-promo {
+  --promo-background-color: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
+  --promo-background-color-vibrant: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
+  --promo-border-color: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
+  --promo-border-color-vibrant: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
+  --promo-border-radius: var(--border-radius-medium, 8px) !important;
+  --promo-message-text-color-vibrant: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+  --background-color-box-info: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
+  /* Inherited tokens that pierce the Shadow DOM of <sync-promo> -> <moz-promo type="vibrant"> */
+  --color-violet-desaturated-10: rgb(240, 240, 244) !important;
+  --color-violet-desaturated-70: rgb(43, 42, 51) !important;
+  --color-violet-80: rgb(21, 20, 26) !important;
+  --color-violet-0: rgb(251, 251, 254) !important;
+}
+
 /* UI Density overrides (Proton values from tabs.css & variables.css) */
 :root[uidensity="compact"],
 :root[uidensity="compact"] :is(#TabsToolbar, #urlbar, .urlbar) {
@@ -431,7 +448,7 @@ panel[type="arrow"] {
 }
 
 /* --------------------------------------------------------------------------
-   3. TOOLBOX & NAV-BAR BACKGROUND (Proton Natif Opaque / Light & Dark)
+   3. TOOLBOX & NAV-BAR BACKGROUND (Proton Native Opaque / Light & Dark)
    -------------------------------------------------------------------------- */
 :root,
 #main-window,
@@ -450,7 +467,7 @@ toolbar.browser-titlebar,
   background-image: none !important;
 }
 
-/* Neutralise la vibrance / translucidité Cocoa native macOS de Firefox Nova */
+/* Neutralizes macOS native Cocoa vibrancy / translucency from Firefox Nova */
 #navigator-toolbox::after {
   display: none !important;
   appearance: none !important;
@@ -491,9 +508,9 @@ toolbar.browser-titlebar:-moz-window-inactive {
    4. TOOLBAR ICONS COLOR (Proton Slate Gray #5b5b66 - NOT Pure Black)
    -------------------------------------------------------------------------- */
 :is(#navigator-toolbox, toolbar, #nav-bar, #TabsToolbar, #PersonalToolbar, #customization-palette)
-  :is(.toolbarbutton-1, toolbarbutton):not([starred]):not([attention]):not(.private-browsing-indicator-button)
-  :is(.toolbarbutton-icon, .urlbar-icon, #downloads-indicator-icon):not(#urlbar-revert-button),
-#page-action-buttons :is(.urlbar-page-action, #star-button-box):not([starred]) image,
+  :is(.toolbarbutton-1, toolbarbutton):not([starred]):not([attention]):not(.private-browsing-indicator-button):not(.titlebar-button)
+  :is(.toolbarbutton-icon, .urlbar-icon, #downloads-indicator-icon):not(#urlbar-revert-button):not(#star-button[starred]),
+#page-action-buttons :is(.urlbar-page-action:not([readeractive]):not([translationsactive]), #star-button-box) image:not([starred]):not(#translations-button-circle-arrows),
 #tracking-protection-icon-container image,
 #identity-box:not(.notSecure):not(.mixedActiveContent):not(.httpsOnlyErrorPage):not(.weakCipher):not(.certErrorPage) image,
 .searchmode-switcher-dropmarker {
@@ -502,16 +519,10 @@ toolbar.browser-titlebar:-moz-window-inactive {
 }
 
 :is(#navigator-toolbox, toolbar, #nav-bar, #TabsToolbar, #PersonalToolbar, #customization-palette)
-  :is(.toolbarbutton-1, toolbarbutton):not([starred]):not([attention]):not(.private-browsing-indicator-button):hover
-  :is(.toolbarbutton-icon, .urlbar-icon):not(#urlbar-revert-button),
-#page-action-buttons :is(.urlbar-page-action, #star-button-box):not([starred]):hover image {
+  :is(.toolbarbutton-1, toolbarbutton):not([starred]):not([attention]):not(.private-browsing-indicator-button):not(.titlebar-button):hover
+  :is(.toolbarbutton-icon, .urlbar-icon):not(#urlbar-revert-button):not(#star-button[starred]),
+#page-action-buttons :is(.urlbar-page-action:not([readeractive]):not([translationsactive]), #star-button-box):hover image:not([starred]):not(#translations-button-circle-arrows) {
   fill: var(--toolbarbutton-icon-fill-hover, #15141a) !important;
-}
-
-/* Suppress stray ::after chevrons on toolbar buttons in navbar */
-#nav-bar :is(.subviewbutton-nav, toolbarbutton, .toolbarbutton-1)::after {
-  content: none !important;
-  display: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -636,10 +647,10 @@ toolbar.browser-titlebar:-moz-window-inactive {
 }
 
 /* ==========================================================================
-   TAB GROUPS (Style Proton natif)
+   TAB GROUPS (Native Proton style)
    ========================================================================== */
 
-/* 1. Pastille de groupe : Rectangle arrondi symétrique */
+/* 1. Tab group label pill: Symmetrical rounded rectangle */
 .tab-group-label {
   border-radius: calc(var(--tab-border-radius, 8px) - 2px) !important;
   border-end-start-radius: calc(var(--tab-border-radius, 8px) - 2px) !important;
@@ -650,7 +661,7 @@ toolbar.browser-titlebar:-moz-window-inactive {
   padding-inline: 8px !important;
 }
 
-/* 2. Groupe replié : Pastille inversée avec contour fin */
+/* 2. Collapsed group: Inverted pill with thin outline */
 tab-group[collapsed] > .tab-group-label-container .tab-group-label {
   background-color: var(--tab-group-color-invert) !important;
   color: light-dark(var(--tab-group-color), var(--tab-group-color-pale)) !important;
@@ -658,7 +669,7 @@ tab-group[collapsed] > .tab-group-label-container .tab-group-label {
   outline-offset: -1px !important;
 }
 
-/* 2b. Groupe replié au survol : Surlignage de fond identique à un onglet inactif au survol */
+/* 2b. Collapsed group on hover: Background highlight matching an inactive hovered tab */
 tab-group[collapsed] .tab-group-label-hover-highlight {
   border-radius: calc(var(--tab-border-radius, 8px) - var(--tab-group-label-highlight-radius, 2px)) !important;
   transition: background-color 150ms ease, box-shadow 150ms ease !important;
@@ -676,12 +687,12 @@ tab-group[previewpanelactive] .tab-group-label-hover-highlight {
   box-shadow: 0 0 0 var(--tab-group-label-highlight-radius, 2px) var(--tab-background-color-hover) !important;
 }
 
-/* Conserver le fond inversé de la pastille interne au survol */
+/* Preserve inverted background of the inner pill on hover */
 tab-group[collapsed] > .tab-group-label-container .tab-group-label:hover {
   background-color: var(--tab-group-color-invert) !important;
 }
 
-/* 3. Compteur d'onglets masqués : Texte brut sans pastille ronde */
+/* 3. Hidden tabs count badge: Plain text without circular badge */
 .tab-group-overflow-count {
   background-color: transparent !important;
   border-radius: 0 !important;
@@ -694,7 +705,7 @@ tab-group[collapsed] > .tab-group-label-container .tab-group-label:hover {
   line-height: inherit !important;
 }
 
-/* 4. Ligne continue sous tout le groupe (Pastille + Onglets + Compteur) */
+/* 4. Continuous underline across entire group (Label + Tabs + Counter) */
 tab-group {
   --tab-group-line-color: var(--tab-group-color) !important;
 }
@@ -703,7 +714,7 @@ tab-group[collapsed] {
   --tab-group-line-color: light-dark(var(--tab-group-color), var(--tab-group-color-pale)) !important;
 }
 
-/* Trait sous la pastille */
+/* Underline under the group label pill */
 #tabbrowser-tabs[orient="horizontal"] tab-group:not([collapsed]) > .tab-group-label-container::after,
 #tabbrowser-tabs[orient="horizontal"] tab-group[collapsed][hasactivetab]:not([movingtabgroup]) > .tab-group-label-container::after {
   content: "" !important;
@@ -717,7 +728,7 @@ tab-group[collapsed] {
   border-end-start-radius: 1px !important;
 }
 
-/* Trait continu sous chaque onglet du groupe (déborde avec insets négatifs pour combler l'espace inter-onglets) */
+/* Continuous underline under each tab in group (extends via negative insets to bridge tab gaps) */
 #tabbrowser-tabs[orient="horizontal"] tab-group .tabbrowser-tab .tab-group-line {
   display: flex !important;
   position: absolute !important;
@@ -728,7 +739,7 @@ tab-group[collapsed] {
   z-index: 1 !important;
 }
 
-/* Arrondi de terminaison sur le dernier onglet du groupe */
+/* Terminal rounded corner on the last tab of the group */
 #tabbrowser-tabs[orient="horizontal"] tab-group:not([collapsed]) > .tabbrowser-tab:last-of-type .tab-group-line,
 #tabbrowser-tabs[orient="horizontal"] tab-group[collapsed]:not([hasmultipletabs]) .tab-group-line {
   inset-inline-end: calc(var(--tab-border-radius, 8px) / 2) !important;
@@ -736,7 +747,7 @@ tab-group[collapsed] {
   border-end-end-radius: 1px !important;
 }
 
-/* Trait sous le conteneur du compteur replié */
+/* Underline under the collapsed counter container */
 #tabbrowser-tabs[orient="horizontal"] tab-group[hasactivetab][hasmultipletabs] > .tab-group-overflow-count-container::after {
   content: "" !important;
   display: block !important;
@@ -750,7 +761,7 @@ tab-group[collapsed] {
   border-end-end-radius: 1px !important;
 }
 
-/* 5. Swatches de l'éditeur de groupe : style natif Proton (omni tabs.css) */
+/* 5. Group editor swatches: Proton native style (omni tabs.css) */
 .tab-group-editor-swatches {
   padding-block: var(--panel-menuitem-padding-block, 4px) !important;
 }
@@ -775,7 +786,7 @@ tab-group[collapsed] {
   outline-offset: 1px !important;
 }
 
-/* 6. Pastilles de groupe dans les menus (Rechercher et gérer les onglets, menus récents, etc.) : carré arrondi Proton coloré */
+/* 6. Tab group chiclets in menus (Search & manage tabs, recent menus, etc.): colored Proton rounded square */
 .tab-group-icon.tab-group-icon,
 .all-tabs-group-item .tab-group-icon,
 toolbarbutton.tab-group-icon {
@@ -821,14 +832,42 @@ menuitem.tab-group-icon .menu-iconic-icon {
   border: 1px solid var(--tab-group-color, var(--tab-group-background-color, #0061e0)) !important;
 }
 
-/* 7. Indicateur d'onglet conteneur (allTabsMenu et sous-menus) : fond carré arrondi Proton (4px au lieu du rond Nova) */
-.all-tabs-item > toolbarbutton.all-tabs-container-indicator::before {
-  border-radius: var(--border-radius-small, 4px) !important;
+/* 7. Container tab indicators (menus & panels): pure Proton icon without Nova pastel background */
+.all-tabs-item > toolbarbutton.all-tabs-container-indicator {
+  padding-inline-end: revert !important;
 }
 
-.subviewbutton[usercontextid] > .toolbarbutton-icon,
+.all-tabs-item > toolbarbutton.all-tabs-container-indicator::before {
+  inset: 2px -3px !important;
+  transform: none !important;
+  box-sizing: border-box !important;
+  width: 2px !important;
+  height: auto !important;
+  padding: 0 !important;
+  border-radius: var(--border-radius-xsmall, 2px) !important;
+  background: var(--identity-tab-color, var(--identity-icon-color)) !important;
+  background-color: var(--identity-tab-color, var(--identity-icon-color)) !important;
+  background-image: none !important;
+}
+
+.subviewbutton[usercontextid] > .toolbarbutton-icon {
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  fill: var(--identity-icon-color) !important;
+}
+
+.menuitem-iconic[data-usercontextid] {
+  --menuitem-icon-fill: var(--identity-icon-color) !important;
+}
+
 .menuitem-iconic[data-usercontextid] > .menu-icon {
-  border-radius: var(--border-radius-small, 4px) !important;
+  width: var(--icon-size, 16px) !important;
+  height: var(--icon-size, 16px) !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -857,7 +896,8 @@ menuitem.tab-group-icon .menu-iconic-icon {
   line-height: calc(var(--urlbar-height) - 2px) !important;
 }
 
-/* Searchmode switcher ([ G v ]): White pill when unfocused, flat transparent when focused/open (Proton native) */
+/* Searchmode switcher ([ G v ]): White pill when unfocused, flat transparent when focused/open,
+   subtle Proton focus tint when an active search mode is engaged */
 .searchmode-switcher,
 #urlbar-search-mode-indicator {
   --button-background-color-muted: var(--urlbar-box-background-color) !important;
@@ -871,12 +911,15 @@ menuitem.tab-group-icon .menu-iconic-icon {
   height: var(--urlbar-basic-component-size, 28px) !important;
 }
 
-:is(#urlbar, .urlbar):is([focused], :focus-within, [open], [popover-open]) .searchmode-switcher:not(:hover, [open]),
-:is(#urlbar, .urlbar):is([focused], :focus-within, [open], [popover-open]) #urlbar-search-mode-indicator:not(:hover) {
+:is(#urlbar, .urlbar):not([searchmode]):is([focused], :focus-within, [open], [popover-open]) .searchmode-switcher:not(:hover, [open]) {
   --button-background-color-muted: transparent !important;
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
+}
+
+:is(#urlbar, .urlbar)[searchmode]:is([focused], :focus-within, [open], [popover-open]) .searchmode-switcher:not(:hover, [open]) {
+  --button-background-color-muted: var(--urlbar-box-background-color-focus) !important;
 }
 
 .searchmode-switcher:hover,
@@ -1027,7 +1070,7 @@ menuitem.tab-group-icon .menu-iconic-icon {
   padding: 0 !important;
 }
 
-/* Ligne de séparation Proton entre le champ et les résultats + alignement des gouttières */
+/* Proton separator line between input field and results dropdown + gutter alignment */
 :is(#urlbar, .urlbar):is([open], [popover-open]) > .urlbarView > .urlbarView-results {
   border-top: 1px solid var(--urlbarview-separator-color) !important;
   padding-block: calc(var(--urlbarview-results-padding) - var(--urlbarview-row-gutter)) !important;
@@ -1052,14 +1095,14 @@ menuitem.tab-group-icon .menu-iconic-icon {
   color: var(--urlbarview-text-color-action) !important;
 }
 
-/* Pastilles de groupes d'onglets dans les suggestions : palette Proton au lieu de Nova */
+/* Tab group chiclets in urlbar suggestions: Proton palette instead of Nova */
 .urlbarView-row .urlbarView-tab-group-container,
 .urlbarView-action-btn[data-action^="tabgroup-"] {
   background-color: var(--tab-group-color) !important;
   color: light-dark(var(--tab-group-color-pale, #ffffff), #15141a) !important;
 }
 
-/* Chiclet "Basculer vers l'onglet" : bordure Proton discrète au lieu de currentColor */
+/* "Switch to tab" chiclet: discreet Proton border instead of currentColor */
 .urlbarView-row:is([type="switchtab"], [type="remotetab"], [type="clipboard"]) .urlbarView-action {
   border-color: var(--border-color-deemphasized) !important;
 }
@@ -1082,8 +1125,8 @@ menuitem.tab-group-icon .menu-iconic-icon {
 /* --------------------------------------------------------------------------
    7. APP MENU & HAMBURGER POPUP
    -------------------------------------------------------------------------- */
-/* Restore classic Firefox Account banner */
-#appMenu-fxa-label2 {
+/* Restore classic Firefox Account banner (signed-out state only, matching panelUI-shared.css) */
+#appMenu-fxa-status2:not([fxastatus]) > #appMenu-fxa-label2 {
   display: flex !important;
   padding: var(--space-small, 4px) var(--space-medium, 8px) !important;
   color: var(--button-text-color) !important;
@@ -1091,14 +1134,24 @@ menuitem.tab-group-icon .menu-iconic-icon {
   font-weight: var(--font-weight-semibold, 600) !important;
 }
 
-#appMenu-fxa-label2:hover {
-  color: var(--button-text-color-hover) !important;
+#appMenu-fxa-status2:not([fxastatus]) > #appMenu-fxa-label2:hover {
+  color: var(--button-text-color-hover, var(--button-text-color)) !important;
   background-color: var(--button-background-color-hover) !important;
+}
+
+#appMenu-fxa-status2:not([fxastatus]) > #appMenu-fxa-label2:hover:active {
+  color: var(--button-text-color-active, var(--button-text-color)) !important;
+  background-color: var(--button-background-color-active) !important;
 }
 
 /* Hide Nova account pill banner */
 #appMenu-nova-fxa-label {
   display: none !important;
+}
+
+/* Restore Proton colored zap separator in App Menu (neutralized by --tab-border-color-accent: none) */
+.PanelUI-subView toolbarseparator.proton-zap::before {
+  border-image: var(--panel-separator-zap-gradient, none) 1 !important;
 }
 
 /* App menu items border radius */
@@ -1111,7 +1164,8 @@ menupopup menu {
 /* Context menus & XUL popups menuitem hover */
 menupopup menuitem:hover:not([disabled]),
 menupopup menu:hover:not([disabled]),
-menupopup menuitem[_moz-menuactive]:not([disabled]) {
+menupopup menuitem[_moz-menuactive]:not([disabled]),
+menupopup menu[_moz-menuactive]:not([disabled]) {
   background-color: light-dark(rgb(240, 240, 244), rgb(56, 54, 65)) !important;
   color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
 }
@@ -1187,7 +1241,7 @@ findbar .findbar-closebutton {
 }
 
 /* --------------------------------------------------------------------------
-   11. TAB HOVER PREVIEWS (Bulle d'aperçu d'onglet Proton native)
+   11. TAB HOVER PREVIEWS (Proton native tab preview tooltip)
    -------------------------------------------------------------------------- */
 /* Single tab thumbnail preview */
 #tab-preview-panel,
@@ -1211,7 +1265,7 @@ findbar .findbar-closebutton {
   border-radius: var(--border-radius-small, 4px) !important;
 }
 
-/* Tab Group hover menu (liste des onglets d'un groupe au survol de la pastille) */
+/* Tab Group hover menu (tab list popup when hovering over a group label) */
 #tabgroup-preview-panel {
   --panel-border-radius: var(--popup-border-radius, 8px) !important;
   --panel-padding: var(--panel-subview-body-padding-block, 4px) 0 !important;

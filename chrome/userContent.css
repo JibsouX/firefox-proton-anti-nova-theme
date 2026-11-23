@@ -44,15 +44,13 @@
     --in-content-box-background: light-dark(#ffffff, #2b2a33) !important;
     --tabpanel-background-color: light-dark(#ffffff, #2b2a33) !important;
 
-    /* Neutralize all Nova gradient tokens across native pages */
+    /* Neutralize Nova gradient tokens across native pages (keeps custom New Tab wallpapers working) */
     --toolbox-background-gradient: none !important;
     --toolbox-background-gradient-leading: transparent !important;
     --toolbox-background-gradient-trailing: transparent !important;
     --fxview-background-color: light-dark(#ffffff, #2b2a33) !important;
     --fxview-background-color-secondary: light-dark(#ffffff, #2b2a33) !important;
     --newtab-background-color: light-dark(#ffffff, #2b2a33) !important;
-    --newtab-wallpaper: none !important;
-    --newtab-wallpaper-color: transparent !important;
     --mr-welcome-background-gradient: none !important;
     --mr-smart-window-background-gradient: none !important;
 
@@ -95,7 +93,7 @@
     --icon-color-accent-primary-desaturated: light-dark(#0061e0, #00cadb) !important;
 
     /* Promo Banners */
-    --promo-background-color-vibrant: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
+    --promo-background-color-vibrant: light-dark(rgb(240, 240, 244), rgb(66, 65, 77)) !important;
     --promo-border-color-vibrant: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
     --promo-message-text-color-vibrant: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
 
@@ -125,12 +123,6 @@
     --input-search-border-radius: var(--border-radius-medium, 8px) !important;
   }
 
-  html,
-  body {
-    background-color: light-dark(#ffffff, #2b2a33) !important;
-    background-image: none !important;
-  }
-
   /* Information Banners & Message Bars across internal pages */
   taar-notice {
     background: transparent !important;
@@ -148,8 +140,8 @@
   }
 
   /* ------------------------------------------------------------------------
-     Composants Web & Shadow DOM Host Elements : Neutralisation des angles Nova
-     Forces Proton 8px/4px sur moz-page-nav-button, moz-button, segmented-control, etc.
+     Web Components & Shadow DOM Host Elements: Neutralizing Nova rounded corners
+     Forces Proton 8px/4px on moz-page-nav-button, moz-button, segmented-control, etc.
      ------------------------------------------------------------------------ */
   :is(
     moz-page-nav-button,
@@ -195,7 +187,22 @@
     --promo-border-radius: var(--border-radius-medium, 8px) !important;
   }
 
-  /* Shadow DOM parts pour les composants Web qui les exposent */
+  /* Nova promos in internal pages (about:preferences, about:addons) */
+  moz-promo {
+    --promo-background-color: light-dark(rgb(240, 240, 244), rgb(66, 65, 77)) !important;
+    --promo-background-color-vibrant: light-dark(rgb(240, 240, 244), rgb(66, 65, 77)) !important;
+    --promo-border-color: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
+    --promo-border-color-vibrant: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
+    --promo-border-radius: var(--border-radius-medium, 8px) !important;
+    --promo-message-text-color-vibrant: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --background-color-box-info: light-dark(rgb(240, 240, 244), rgb(66, 65, 77)) !important;
+    --color-violet-desaturated-10: rgb(240, 240, 244) !important;
+    --color-violet-desaturated-70: rgb(66, 65, 77) !important;
+    --color-violet-80: rgb(21, 20, 26) !important;
+    --color-violet-0: rgb(251, 251, 254) !important;
+  }
+
+  /* Shadow DOM parts for Web Components exposing them */
   :is(moz-button, moz-segmented-control-item, panel-item)::part(button),
   :is(moz-button, moz-segmented-control-item, panel-item)::part(chevron-button) {
     border-radius: var(--button-border-radius, 8px) !important;
@@ -215,7 +222,7 @@
     border-bottom-right-radius: 0 !important;
   }
 
-  /* Tous boutons, contrôles et cartes natifs dans l'interface */
+  /* All native buttons, controls, and cards across the interface */
   button,
   input[type="button"],
   input[type="submit"],
@@ -226,6 +233,39 @@
   .theme-card,
   .category {
     border-radius: var(--button-border-radius, 8px) !important;
+  }
+}
+
+/* Force plain Proton canvas on internal pages (excludes about:newtab / about:home so custom wallpapers work) */
+@-moz-document
+  url-prefix("about:addons"),
+  url-prefix("about:preferences"),
+  url-prefix("about:firefoxview"),
+  url-prefix("about:welcome"),
+  url-prefix("about:privatebrowsing"),
+  url-prefix("about:keyboard"),
+  url-prefix("about:protections"),
+  url-prefix("about:logins"),
+  url-prefix("about:config"),
+  url-prefix("about:support"),
+  url-prefix("about:profiles"),
+  url-prefix("about:downloads"),
+  url-prefix("about:policies"),
+  url-prefix("about:networking"),
+  url-prefix("about:processes"),
+  url-prefix("about:memory"),
+  url-prefix("about:studies"),
+  url-prefix("about:telemetry"),
+  url-prefix("about:crashes"),
+  url-prefix("chrome://mozapps/content/extensions/aboutaddons.html"),
+  url-prefix("chrome://browser/content/firefoxview/firefoxview.html"),
+  url-prefix("chrome://browser/content/customkeys/customkeys.html"),
+  url-prefix("chrome://browser/content/preferences/preferences.xhtml") {
+
+  html,
+  body {
+    background-color: light-dark(#ffffff, #2b2a33) !important;
+    background-image: none !important;
   }
 }
 
@@ -346,6 +386,21 @@
    5. ABOUT:NEWTAB & ABOUT:HOME (New Tab Page)
    -------------------------------------------------------------------------- */
 @-moz-document url-prefix("about:home"), url-prefix("about:newtab") {
+  /* Custom New Tab wallpapers and solid colors are preserved by default.
+     Uncomment the block below to force a plain Proton background and disable
+     all wallpapers/gradients on about:newtab and about:home:
+  :root {
+    --newtab-wallpaper: none !important;
+    --newtab-wallpaper-color: transparent !important;
+  }
+
+  html,
+  body {
+    background-color: light-dark(#ffffff, #2b2a33) !important;
+    background-image: none !important;
+  }
+  */
+
   /* Search bar / handoff */
   .search-inner-wrapper,
   .search-handoff-button {
@@ -371,7 +426,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   6. ABOUT:KEYBOARD (Raccourcis clavier)
+   6. ABOUT:KEYBOARD (Keyboard shortcuts)
    -------------------------------------------------------------------------- */
 @-moz-document url-prefix("about:keyboard"), url-prefix("chrome://browser/content/customkeys/customkeys.html") {
   moz-card,
