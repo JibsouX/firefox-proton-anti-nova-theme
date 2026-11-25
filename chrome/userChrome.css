@@ -18,18 +18,23 @@
   color-scheme: light dark;
 }
 
-:root[privatebrowsingmode],
-:root[privatebrowsingmode] :is(toolbar, #navigator-toolbox, #nav-bar, #TabsToolbar, #PersonalToolbar, #urlbar, .urlbar, menupopup, panel, .urlbarView),
-:root:is([lwt-toolbar="dark"], [lwtheme-brighttext]),
-:root:is([lwt-toolbar="dark"], [lwtheme-brighttext]) :is(toolbar, #navigator-toolbox, #nav-bar, #TabsToolbar, #PersonalToolbar, #urlbar, .urlbar, menupopup, panel, .urlbarView) {
-  color-scheme: dark !important;
+@media not ((forced-colors) or (-moz-native-theme)) {
+  :root[privatebrowsingmode]:is([theme-in-app], :not([lwtheme])),
+  :root[privatebrowsingmode]:is([theme-in-app], :not([lwtheme])) :is(toolbar, #navigator-toolbox, #nav-bar, #TabsToolbar, #PersonalToolbar, #urlbar, .urlbar, menupopup, panel, .urlbarView),
+  :root:is([theme-in-app], :not([lwtheme])):is([lwt-toolbar="dark"], [lwtheme-brighttext]),
+  :root:is([theme-in-app], :not([lwtheme])):is([lwt-toolbar="dark"], [lwtheme-brighttext]) :is(toolbar, #navigator-toolbox, #nav-bar, #TabsToolbar, #PersonalToolbar, #urlbar, .urlbar, menupopup, panel, .urlbarView) {
+    color-scheme: dark !important;
+  }
+
+  :root:is([theme-in-app], :not([lwtheme]))[lwt-toolbar="light"]:not([privatebrowsingmode]),
+  :root:is([theme-in-app], :not([lwtheme]))[lwt-toolbar="light"]:not([privatebrowsingmode]) :is(toolbar, #navigator-toolbox, #nav-bar, #TabsToolbar, #PersonalToolbar, #urlbar, .urlbar, menupopup, panel, .urlbarView) {
+    color-scheme: light !important;
+  }
 }
 
-:root[lwt-toolbar="light"]:not([privatebrowsingmode]),
-:root[lwt-toolbar="light"]:not([privatebrowsingmode]) :is(toolbar, #navigator-toolbox, #nav-bar, #TabsToolbar, #PersonalToolbar, #urlbar, .urlbar, menupopup, panel, .urlbarView) {
-  color-scheme: light !important;
-}
-
+/* --------------------------------------------------------------------------
+   2a. UNIVERSAL PROTON GEOMETRY & LAYOUT (All Themes: Built-in, AMO, Linux GTK)
+   -------------------------------------------------------------------------- */
 :root,
 #navigator-toolbox,
 #nav-bar,
@@ -41,19 +46,6 @@ panel,
 .urlbarView,
 #urlbar,
 .urlbar {
-  /* Proton Accent Colors (Blue #0061e0 in Light, Cyan #00cadb/#00ddff in Dark - NOT Nova violet) */
-  --color-accent-primary: light-dark(#0061e0, #00cadb) !important;
-  --color-accent-primary-hover: light-dark(#0250bb, #80ebff) !important;
-  --color-accent-primary-active: light-dark(#054096, #cff5ff) !important;
-  --color-accent-primary-selected: var(--color-accent-primary) !important;
-  --link-color: var(--color-accent-primary) !important;
-  --link-color-hover: var(--color-accent-primary-hover) !important;
-  --link-color-active: var(--color-accent-primary-active) !important;
-
-  /* Global Neutral Typography (Proton neutral dark/light - NOT Nova violet-desaturated) */
-  --text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-  --text-color-deemphasized: light-dark(#5b5b66, #bfbfc9) !important;
-
   /* Border Radii (Proton conservative radii, not Nova 24px pills) */
   --border-radius-xsmall: 2px !important;
   --border-radius-small: 4px !important;
@@ -65,9 +57,6 @@ panel,
   --card-border-radius: var(--border-radius-large, 16px) !important;
   --card-border-radius-compact: var(--border-radius-medium, 8px) !important;
   --card-cover-image-border-radius: var(--border-radius-medium, 8px) !important;
-  --card-header-background-color: transparent !important;
-  --card-header-background-color-hover: var(--button-background-color-hover) !important;
-  --card-header-background-color-active: var(--button-background-color-active) !important;
   --input-border-radius: var(--border-radius-medium, 8px) !important;
   --input-search-border-radius: var(--border-radius-medium, 8px) !important;
   --link-border-radius-focus: var(--border-radius-small, 4px) !important;
@@ -76,106 +65,8 @@ panel,
   --badge-border-radius: var(--border-radius-small, 4px) !important;
   --page-nav-button-border-radius: var(--border-radius-medium, 8px) !important;
   --promo-border-radius: var(--border-radius-medium, 8px) !important;
-  --trustpanel-highlight-bg: light-dark(rgba(0, 97, 224, 0.08), rgba(0, 202, 219, 0.12)) !important;
-
-  /* Canvas, Box & Sidebar Backdrops:
-     - Canvas & Sidebar: PURE WHITE (#ffffff) Light / Proton #1c1b22 Dark
-     - Box/Cards: PURE WHITE (#ffffff) Light / Proton #23222b Dark
-     - Tabpanel: PURE WHITE (#ffffff) Light / Proton #2b2a33 Dark
-     - Chrome Inputs: PURE WHITE (#ffffff) Light / Proton #42414d Dark */
-  --background-color-canvas: light-dark(#ffffff, #1c1b22) !important;
-  --background-color-box: light-dark(#ffffff, #23222b) !important;
-  --tabpanel-background-color: light-dark(#ffffff, #2b2a33) !important;
-  --input-background-color: light-dark(#ffffff, #42414d) !important;
-  --sidebar-background-color: light-dark(#ffffff, rgb(28, 27, 34)) !important;
-  --sidebar-text-color: light-dark(rgb(21, 20, 26), rgb(249, 249, 250)) !important;
-  --sidebar-border-color: light-dark(color-mix(in srgb, currentColor 10%, transparent), color-mix(in srgb, currentColor 6%, transparent)) !important;
-
-  /* Focus Outline (Proton Blue #0061e0 in Light, Cyan #00ddff in Dark - NOT Nova Purple) */
-  --focus-outline-color: light-dark(#0061e0, #00ddff) !important;
-  --focus-outline-width: 2px !important;
-  --focus-outline: var(--focus-outline-width) solid var(--focus-outline-color) !important;
-
-  /* Window Titlebar & Tabstrip Background (Official Native Proton: rgb(234, 234, 237) / #eaeaed in Light, #1c1b22 in Dark) */
-  --toolbox-background-color: light-dark(rgb(234, 234, 237), rgb(28, 27, 34)) !important;
-  --toolbox-background-color-inactive: light-dark(rgb(240, 240, 244), rgb(31, 30, 37)) !important;
-  --toolbox-background-gradient-leading: transparent !important;
-  --toolbox-background-gradient-trailing: transparent !important;
-  --toolbox-background-gradient: none !important;
-  --toolbox-background-image: none !important;
-  --lwt-header-image: none !important;
-  --lwt-additional-images: none !important;
-  --toolbox-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-  --toolbox-text-color-inactive: var(--toolbox-text-color) !important;
-
-  /* Navigation Bar Zone Background (Native Proton #f9f9fb in Light, #2b2a33 in Dark) */
-  --toolbar-background-color: light-dark(#f9f9fb, rgb(43, 42, 51)) !important;
-  --toolbar-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-
-  /* Selected Tab Background: PURE WHITE (#ffffff) in Light, native translucent rgba(106, 106, 120, 0.7) in Dark */
-  --tab-background-color: transparent !important;
-  --tab-background-color-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
-  --tab-background-color-selected: light-dark(#ffffff, rgba(106, 106, 120, 0.7)) !important;
-  --tab-text-color-selected: light-dark(rgb(21, 20, 26), #ffffff) !important;
-  --tab-box-shadow-selected: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
-
-  /* Address Bar Field Background:
-     - Unfocused: Soft gray capsule rgba(0, 0, 0, 0.05) in Light, native dark capsule rgba(0, 0, 0, 0.3) in Dark
-     - Focused: PURE WHITE (#ffffff) with Proton Blue outline in Light, #42414d in Dark */
-  --toolbar-field-background-color: light-dark(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.3)) !important;
-  --toolbar-field-background-color-focus: light-dark(#ffffff, rgb(66, 65, 77)) !important;
-  --toolbar-field-border-color: transparent !important;
-  --toolbar-field-border-color-focus: var(--focus-outline-color) !important;
-  --toolbar-field-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-  --toolbar-field-text-color-focus: light-dark(#000000, #ffffff) !important;
-
-  /* Toolbar Icons Color (Proton Slate Gray #5b5b66 in Light Mode, #fbfbfe in Dark) */
-  --toolbarbutton-icon-fill: light-dark(#5b5b66, #fbfbfe) !important;
-  --toolbarbutton-icon-fill-hover: light-dark(#15141a, #ffffff) !important;
-  --toolbarbutton-icon-fill-active: light-dark(#15141a, #ffffff) !important;
-  --toolbarbutton-icon-fill-attention: light-dark(#4886e6, #00cadb) !important;
-
-  /* Toolbar Bottom Separator (suppresses Nova purple border, native Proton neutral) */
-  --chrome-content-separator-color: light-dark(rgba(21, 20, 26, 0.1), rgba(251, 251, 254, 0.1)) !important;
-
-  /* Popups & Panels native Proton tokens */
-  --panel-background-color: light-dark(#ffffff, rgb(66, 65, 77)) !important;
-  --panel-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-  --panel-border-color: light-dark(rgb(240, 240, 244), rgb(82, 82, 94)) !important;
-
-  /* Primary Buttons (Proton Blue #0061e0 in Light, Cyan #00cadb in Dark) */
-  --button-background-color-primary: var(--color-accent-primary) !important;
-  --button-background-color-primary-hover: var(--color-accent-primary-hover) !important;
-  --button-background-color-primary-active: var(--color-accent-primary-active) !important;
-  --button-background-color-primary-disabled: light-dark(rgba(0, 97, 224, 0.4), rgba(0, 202, 219, 0.4)) !important;
-  --button-text-color-primary: light-dark(#ffffff, rgb(43, 42, 51)) !important;
-  --button-text-color-primary-hover: var(--button-text-color-primary) !important;
-  --button-text-color-primary-active: var(--button-text-color-primary) !important;
-  --button-border-color-primary: transparent !important;
-
-  /* Standard / Secondary Buttons (Proton Neutral Grays - NO Nova Purple Tint) */
-  --button-background-color: light-dark(rgba(207, 207, 216, 0.33), rgba(0, 0, 0, 0.33)) !important;
-  --button-background-color-hover: light-dark(rgba(207, 207, 216, 0.66), rgba(207, 207, 216, 0.2)) !important;
-  --button-background-color-active: light-dark(rgb(207, 207, 216), rgba(207, 207, 216, 0.4)) !important;
-  --button-border-color: transparent !important;
-  --button-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-
-  /* Toolbar & Ghost Buttons Hovers (Neutral in both light & dark) */
   --toolbarbutton-border-radius: var(--border-radius-medium, 8px) !important;
-  --toolbarbutton-background-color-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
-  --toolbarbutton-background-color-active: color-mix(in srgb, currentColor 18%, transparent) !important;
-
-  --button-background-color-ghost: transparent !important;
-  --button-background-color-ghost-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
-  --button-background-color-ghost-active: color-mix(in srgb, currentColor 18%, transparent) !important;
-  --button-background-color-ghost-disabled: transparent !important;
-  --button-background-color-ghost-selected: var(--button-background-color-ghost-active) !important;
-
-  /* Menus & Subviews (.subviewbutton & panelUI items neutral hover) */
-  --button-background-color-menu-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
-  --button-background-color-menu-active: color-mix(in srgb, currentColor 18%, transparent) !important;
-  --button-text-color-menu: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-  --button-text-color-menu-hover: currentColor !important;
+  --focus-outline-width: 2px !important;
 
   /* Tabs Dimensions & Close Button Sizing (Proton 6px padding for neat 12px close cross) */
   --tab-min-height: 36px !important;
@@ -189,90 +80,11 @@ panel,
   --tab-group-line-thickness: 2px !important;
   --tab-group-line-toolbar-border-distance: 0px !important;
   --tabstrip-inner-border: none !important;
-
-  /* Base Proton Palette Tokens (replaces Nova dark hex tokens with native Proton OKLCH design system) */
-  --color-blue-0: oklch(97% 0.05 260) !important;
-  --color-blue-20: oklch(83% 0.17 260) !important;
-  --color-blue-70: oklch(48% 0.2 260) !important;
-
-  --color-purple-0: oklch(97% 0.05 315) !important;
-  --color-purple-20: oklch(83% 0.14 315) !important;
-  --color-purple-70: oklch(48% 0.2 315) !important;
-
-  --color-cyan-0: oklch(97% 0.05 205) !important;
-  --color-cyan-20: oklch(83% 0.11 205) !important;
-  --color-cyan-70: oklch(48% 0.2 205) !important;
-
-  --color-orange-0: oklch(97% 0.05 50) !important;
-  --color-orange-20: oklch(86% 0.14 50) !important;
-  --color-orange-70: oklch(48% 0.2 50) !important;
-
-  --color-yellow-0: oklch(97% 0.05 90) !important;
-  --color-yellow-20: oklch(86% 0.14 90) !important;
-  --color-yellow-70: oklch(51% 0.23 90) !important;
-
-  --color-pink-0: oklch(97% 0.05 360) !important;
-  --color-pink-20: oklch(83% 0.14 360) !important;
-  --color-pink-70: oklch(48% 0.2 360) !important;
-
-  --color-green-0: oklch(97% 0.05 145) !important;
-  --color-green-20: oklch(83% 0.14 145) !important;
-  --color-green-70: oklch(48% 0.2 145) !important;
-
-  --color-red-0: oklch(97% 0.05 15) !important;
-  --color-red-20: oklch(83% 0.14 15) !important;
-  --color-red-70: oklch(48% 0.2 15) !important;
-
-  /* Tab Groups Proton Native Palette (from tabs.css) */
-  --tab-group-blue: light-dark(var(--color-blue-70), var(--color-blue-20)) !important;
-  --tab-group-blue-invert: light-dark(var(--color-blue-0), var(--color-blue-70)) !important;
-  --tab-group-blue-pale: var(--color-blue-0) !important;
-
-  --tab-group-purple: light-dark(var(--color-purple-70), var(--color-purple-20)) !important;
-  --tab-group-purple-invert: light-dark(var(--color-purple-0), var(--color-purple-70)) !important;
-  --tab-group-purple-pale: var(--color-purple-0) !important;
-
-  --tab-group-cyan: light-dark(var(--color-cyan-70), var(--color-cyan-20)) !important;
-  --tab-group-cyan-invert: light-dark(var(--color-cyan-0), var(--color-cyan-70)) !important;
-  --tab-group-cyan-pale: var(--color-cyan-0) !important;
-
-  --tab-group-orange: light-dark(var(--color-orange-70), var(--color-orange-20)) !important;
-  --tab-group-orange-invert: light-dark(var(--color-orange-0), var(--color-orange-70)) !important;
-  --tab-group-orange-pale: var(--color-orange-0) !important;
-
-  --tab-group-yellow: light-dark(var(--color-yellow-70), var(--color-yellow-20)) !important;
-  --tab-group-yellow-invert: light-dark(var(--color-yellow-0), var(--color-yellow-70)) !important;
-  --tab-group-yellow-pale: var(--color-yellow-0) !important;
-
-  --tab-group-pink: light-dark(var(--color-pink-70), var(--color-pink-20)) !important;
-  --tab-group-pink-invert: light-dark(var(--color-pink-0), var(--color-pink-70)) !important;
-  --tab-group-pink-pale: var(--color-pink-0) !important;
-
-  --tab-group-green: light-dark(var(--color-green-70), var(--color-green-20)) !important;
-  --tab-group-green-invert: light-dark(var(--color-green-0), var(--color-green-70)) !important;
-  --tab-group-green-pale: var(--color-green-0) !important;
-
-  --tab-group-red: light-dark(var(--color-red-70), var(--color-red-20)) !important;
-  --tab-group-red-invert: light-dark(var(--color-red-0), var(--color-red-70)) !important;
-  --tab-group-red-pale: var(--color-red-0) !important;
-
-  --tab-group-gray: light-dark(#5e6a77, #99a6b4) !important;
-  --tab-group-gray-invert: light-dark(#f2f9ff, #5e6a77) !important;
-  --tab-group-gray-pale: #f2f9ff !important;
-
-  /* Suppress Nova accent gradient border on tabs */
-  --tab-border-color: transparent !important;
-  --tab-border-color-hover: transparent !important;
-  --tab-border-color-selected: transparent !important;
   --tab-border-color-accent: none !important;
   --tab-border-color-selected-leading: transparent !important;
   --tab-border-color-selected-trailing: transparent !important;
 
-  /* Neutral Grey Shadows for Megabar & Popups (Proton Grey - NO Nova Purple Tint) */
-  --chrome-box-shadow: light-dark(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45)) !important;
-  --urlbar-background-box-shadow-open: 0 2px 14px var(--chrome-box-shadow) !important;
-
-  /* Address Bar (Megabar Proton) & UrlbarView (exact native Proton tokens, without chrome-only env(hairline)) */
+  /* Address Bar (Megabar Proton) & UrlbarView Geometry */
   --urlbar-height: max(32px, 1.4em) !important;
   --urlbar-border-radius: var(--button-border-radius, 8px) !important;
   --urlbar-inner-border-radius: calc(var(--urlbar-border-radius) - 1px) !important;
@@ -280,7 +92,6 @@ panel,
   --urlbar-input-container-padding: 1px !important;
   --urlbar-basic-component-size: calc(var(--urlbar-height) - 4px) !important;
   --urlbar-icon-padding: calc((var(--urlbar-height) - 20px) / 2) !important;
-  --urlbar-icon-fill-opacity: 0.72 !important;
   --urlbar-margin-inline: 5px !important;
   --urlbar-container-padding-block: 4px !important;
   --urlbar-background-overhang-open: 0px !important;
@@ -299,14 +110,6 @@ panel,
   --urlbar-input-container-outline-open-focused: none !important;
   --urlbar-input-container-outline-offset-open: 0px !important;
   --urlbar-searchmode-switcher-panel-list-min-width: auto !important;
-  --urlbar-box-background-color: light-dark(#ffffff, rgb(66, 65, 77)) !important;
-  --urlbar-box-background-color-focus: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.1)) !important;
-  --urlbar-box-background-color-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
-  --urlbar-box-background-color-active: color-mix(in srgb, currentColor 18%, transparent) !important;
-  --urlbar-box-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-  --urlbar-box-text-color-hover: var(--urlbar-box-text-color) !important;
-  --urlbar-box-text-color-active: var(--urlbar-box-text-color) !important;
-  --urlbar-box-text-color-focus: var(--urlbar-box-text-color) !important;
 
   --urlbarview-results-padding: 7px !important;
   --urlbarview-margin-block: 0px !important;
@@ -321,64 +124,6 @@ panel,
   --urlbarview-top-pick-icon-border-radius: var(--border-radius-small, 4px) !important;
   --urlbarview-separator-char: "\2014" !important;
   --urlbarview-separator-margin-inline: 0.4em !important;
-  --urlbarview-separator-color: light-dark(rgb(240, 240, 244), rgb(82, 82, 94)) !important;
-  --urlbarview-action-button-background-color: light-dark(
-    color-mix(in srgb, var(--color-gray-20, #e0e0e6) 50%, transparent),
-    color-mix(in srgb, currentColor 8.5%, transparent)
-  ) !important;
-  --urlbarview-action-button-background-color-hover: light-dark(
-    var(--color-gray-20, #e0e0e6),
-    color-mix(in srgb, currentColor 17%, transparent)
-  ) !important;
-  --urlbarview-background-color-selected: light-dark(#e0e0e6, rgb(43, 42, 51)) !important;
-  --urlbarview-text-color-selected: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-  --urlbarview-text-color-secondary: color-mix(in srgb, currentColor 73%, transparent) !important;
-  --urlbarview-text-color-action: light-dark(rgb(91, 91, 102), rgb(191, 191, 201)) !important;
-  --urlbarview-background-color-hover: light-dark(rgb(240, 240, 244), rgba(255, 255, 255, 0.1)) !important;
-
-  /* Menu Promos & Banners (Suppresses Nova vibrant purple banners) */
-  --panel-banner-item-background-color: light-dark(rgba(0, 97, 224, 0.08), rgba(0, 202, 219, 0.12)) !important;
-  --panel-banner-item-icon-color: var(--color-accent-primary) !important;
-  --panel-item-badge-background-color: var(--color-accent-primary) !important;
-  --promo-background-color-vibrant: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
-  --promo-border-color-vibrant: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
-  --promo-message-text-color-vibrant: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-
-  /* Toggles & Form Controls (Proton Blue / Cyan) */
-  --toggle-background-color-pressed: var(--color-accent-primary) !important;
-  --toggle-background-color-pressed-hover: var(--color-accent-primary-hover) !important;
-  --toggle-background-color-pressed-active: var(--color-accent-primary-active) !important;
-  --toggle-dot-background-color: #ffffff !important;
-
-  /* Information Banners & Alerts (Authentic Proton Blue Tokens) */
-  --background-color-information: light-dark(#edf5ff, #1c2438) !important;
-  --icon-color-information: var(--color-accent-primary) !important;
-  --info-bar-border-color: light-dark(rgba(0, 97, 224, 0.25), rgba(0, 202, 219, 0.25)) !important;
-  --icon-color-accent-primary-desaturated: var(--color-accent-primary) !important;
-  --swgt-note-background: light-dark(#edf5ff, rgba(0, 202, 219, 0.12)) !important;
-  --swgt-note-border-color: light-dark(rgba(0, 97, 224, 0.25), rgba(0, 202, 219, 0.25)) !important;
-}
-
-/* macOS native Proton soft-blue focus ring on the address bar */
-@media (-moz-platform: macos) {
-  :root,
-  #urlbar,
-  .urlbar {
-    --toolbar-field-border-color-focus: light-dark(#80b1f7, #00ddff) !important;
-  }
-}
-
-/* Native Proton icon opacity in dark mode (tokens.css) */
-@media (prefers-color-scheme: dark) {
-  :root:not([lwt-toolbar="light"]),
-  :root:not([lwt-toolbar="light"]) :is(#urlbar, .urlbar) {
-    --urlbar-icon-fill-opacity: 1 !important;
-  }
-}
-
-:root:is([privatebrowsingmode], [lwt-toolbar="dark"], [lwtheme-brighttext]),
-:root:is([privatebrowsingmode], [lwt-toolbar="dark"], [lwtheme-brighttext]) :is(#urlbar, .urlbar) {
-  --urlbar-icon-fill-opacity: 1 !important;
 }
 
 /* Panel / popover corners: Proton 8px instead of Nova 24px pills */
@@ -394,7 +139,7 @@ panel[type="arrow"] {
   border-radius: var(--popup-border-radius, 8px) !important;
 }
 
-/* Web Components & Custom Elements in Chrome UI (panels, menus, popups, message bars) */
+/* Web Components & Custom Elements Geometry in Chrome UI */
 :is(
   moz-button,
   moz-button-group,
@@ -412,33 +157,12 @@ panel[type="arrow"] {
   --border-radius-xlarge: 16px !important;
   --button-border-radius: var(--border-radius-medium, 8px) !important;
   --panel-menuitem-border-radius: var(--border-radius-small, 4px) !important;
-  --message-bar-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
-  --message-bar-icon-color: var(--color-accent-primary) !important;
-  --message-bar-icon-background-color: light-dark(#edf5ff, #1c2438) !important;
-  --message-bar-border-color: light-dark(rgba(0, 97, 224, 0.2), rgba(0, 202, 219, 0.2)) !important;
   --message-bar-border-radius: var(--border-radius-medium, 8px) !important;
 }
 
 :is(moz-button, panel-item)::part(button),
 :is(moz-button, panel-item)::part(chevron-button) {
   border-radius: var(--button-border-radius, 8px) !important;
-}
-
-/* Nova promos in menus (Help: moz-promo, History/Bookmarks: sync-promo -> Shadow DOM moz-promo) */
-moz-promo,
-sync-promo {
-  --promo-background-color: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
-  --promo-background-color-vibrant: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
-  --promo-border-color: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
-  --promo-border-color-vibrant: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
-  --promo-border-radius: var(--border-radius-medium, 8px) !important;
-  --promo-message-text-color-vibrant: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-  --background-color-box-info: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
-  /* Inherited tokens that pierce the Shadow DOM of <sync-promo> -> <moz-promo type="vibrant"> */
-  --color-violet-desaturated-10: rgb(240, 240, 244) !important;
-  --color-violet-desaturated-70: rgb(43, 42, 51) !important;
-  --color-violet-80: rgb(21, 20, 26) !important;
-  --color-violet-0: rgb(251, 251, 254) !important;
 }
 
 /* UI Density overrides (Proton values from tabs.css & variables.css) */
@@ -458,91 +182,410 @@ sync-promo {
 }
 
 /* --------------------------------------------------------------------------
-   3. TOOLBOX & NAV-BAR BACKGROUND (Proton Native Opaque / Light & Dark)
+   2b. PROTON PALETTE, SURFACES & IMAGES (Built-in / Default Themes only;
+       preserves custom AMO themes and Linux/macOS native system themes)
    -------------------------------------------------------------------------- */
-:root,
-#main-window,
-body,
-#navigator-toolbox,
-#navigator-toolbox:-moz-window-inactive,
-#nav-bar,
-#toolbar-menubar,
-#TabsToolbar,
-toolbar.browser-titlebar,
-#PersonalToolbar,
-#sidebar-box,
-#sidebar-main,
-#tabbrowser-tabpanels,
-#tabbrowser-tabpanels .browserContainer {
-  background-image: none !important;
-}
+@media not ((forced-colors) or (-moz-native-theme)) {
+  :root:is([theme-in-app], :not([lwtheme])),
+  :root:is([theme-in-app], :not([lwtheme])) :is(
+    #navigator-toolbox,
+    #nav-bar,
+    #TabsToolbar,
+    #PersonalToolbar,
+    toolbar,
+    menupopup,
+    panel,
+    .urlbarView,
+    #urlbar,
+    .urlbar
+  ) {
+    /* Proton Accent Colors (Blue #0061e0 in Light, Cyan #00cadb/#00ddff in Dark - NOT Nova violet) */
+    --color-accent-primary: light-dark(#0061e0, #00cadb) !important;
+    --color-accent-primary-hover: light-dark(#0250bb, #80ebff) !important;
+    --color-accent-primary-active: light-dark(#054096, #cff5ff) !important;
+    --color-accent-primary-selected: var(--color-accent-primary) !important;
+    --link-color: var(--color-accent-primary) !important;
+    --link-color-hover: var(--color-accent-primary-hover) !important;
+    --link-color-active: var(--color-accent-primary-active) !important;
 
-/* Neutralizes macOS native Cocoa vibrancy / translucency from Firefox Nova */
-#navigator-toolbox::after {
-  display: none !important;
-  appearance: none !important;
-}
+    /* Global Neutral Typography (Proton neutral dark/light - NOT Nova violet-desaturated) */
+    --text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --text-color-deemphasized: light-dark(#5b5b66, #bfbfc9) !important;
 
-:root,
-#main-window,
-body,
-#navigator-toolbox,
-#toolbar-menubar,
-#TabsToolbar,
-toolbar.browser-titlebar {
-  background-color: var(--toolbox-background-color) !important;
-}
+    --card-header-background-color: transparent !important;
+    --card-header-background-color-hover: var(--button-background-color-hover) !important;
+    --card-header-background-color-active: var(--button-background-color-active) !important;
+    --trustpanel-highlight-bg: light-dark(rgba(0, 97, 224, 0.08), rgba(0, 202, 219, 0.12)) !important;
 
-:root:-moz-window-inactive,
-#main-window:-moz-window-inactive,
-body:-moz-window-inactive,
-#navigator-toolbox:-moz-window-inactive,
-#toolbar-menubar:-moz-window-inactive,
-#TabsToolbar:-moz-window-inactive,
-toolbar.browser-titlebar:-moz-window-inactive {
-  background-color: var(--toolbox-background-color-inactive) !important;
-  background-image: none !important;
-}
+    /* Canvas, Box & Sidebar Backdrops:
+       - Canvas & Sidebar: PURE WHITE (#ffffff) Light / Proton #1c1b22 Dark
+       - Box/Cards: PURE WHITE (#ffffff) Light / Proton #23222b Dark
+       - Tabpanel: PURE WHITE (#ffffff) Light / Proton #2b2a33 Dark
+       - Chrome Inputs: PURE WHITE (#ffffff) Light / Proton #42414d Dark */
+    --background-color-canvas: light-dark(#ffffff, #1c1b22) !important;
+    --background-color-box: light-dark(#ffffff, #23222b) !important;
+    --tabpanel-background-color: light-dark(#ffffff, #2b2a33) !important;
+    --input-background-color: light-dark(#ffffff, #42414d) !important;
+    --sidebar-background-color: light-dark(#ffffff, rgb(28, 27, 34)) !important;
+    --sidebar-text-color: light-dark(rgb(21, 20, 26), rgb(249, 249, 250)) !important;
+    --sidebar-border-color: light-dark(color-mix(in srgb, currentColor 10%, transparent), color-mix(in srgb, currentColor 6%, transparent)) !important;
 
-@media not -moz-pref("sidebar.verticalTabs") {
-  #browser {
-    background-color: var(--toolbar-background-color) !important;
-    color: var(--toolbar-text-color) !important;
+    /* Focus Outline (Proton Blue #0061e0 in Light, Cyan #00ddff in Dark - NOT Nova Purple) */
+    --focus-outline-color: light-dark(#0061e0, #00ddff) !important;
+    --focus-outline: var(--focus-outline-width) solid var(--focus-outline-color) !important;
+
+    /* Window Titlebar & Tabstrip Background (Official Native Proton: rgb(234, 234, 237) / #eaeaed in Light, #1c1b22 in Dark) */
+    --toolbox-background-color: light-dark(rgb(234, 234, 237), rgb(28, 27, 34)) !important;
+    --toolbox-background-color-inactive: light-dark(rgb(240, 240, 244), rgb(31, 30, 37)) !important;
+    --toolbox-background-gradient-leading: transparent !important;
+    --toolbox-background-gradient-trailing: transparent !important;
+    --toolbox-background-gradient: none !important;
+    --toolbox-background-image: none !important;
+    --lwt-header-image: none !important;
+    --lwt-additional-images: none !important;
+    --toolbox-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --toolbox-text-color-inactive: var(--toolbox-text-color) !important;
+
+    /* Navigation Bar Zone Background (Native Proton #f9f9fb in Light, #2b2a33 in Dark) */
+    --toolbar-background-color: light-dark(#f9f9fb, rgb(43, 42, 51)) !important;
+    --toolbar-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+
+    /* Selected Tab Background & Tab Borders: PURE WHITE (#ffffff) in Light, native translucent rgba(106, 106, 120, 0.7) in Dark */
+    --tab-background-color: transparent !important;
+    --tab-background-color-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
+    --tab-background-color-selected: light-dark(#ffffff, rgba(106, 106, 120, 0.7)) !important;
+    --tab-text-color-selected: light-dark(rgb(21, 20, 26), #ffffff) !important;
+    --tab-box-shadow-selected: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+    --tab-border-color: transparent !important;
+    --tab-border-color-hover: transparent !important;
+    --tab-border-color-selected: transparent !important;
+
+    /* Address Bar Field Background:
+       - Unfocused: Soft gray capsule rgba(0, 0, 0, 0.05) in Light, native dark capsule rgba(0, 0, 0, 0.3) in Dark
+       - Focused: PURE WHITE (#ffffff) with Proton Blue outline in Light, #42414d in Dark */
+    --toolbar-field-background-color: light-dark(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.3)) !important;
+    --toolbar-field-background-color-focus: light-dark(#ffffff, rgb(66, 65, 77)) !important;
+    --toolbar-field-border-color: transparent !important;
+    --toolbar-field-border-color-focus: var(--focus-outline-color) !important;
+    --toolbar-field-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --toolbar-field-text-color-focus: light-dark(#000000, #ffffff) !important;
+
+    /* Toolbar Icons Color (Proton Slate Gray #5b5b66 in Light Mode, #fbfbfe in Dark) */
+    --toolbarbutton-icon-fill: light-dark(#5b5b66, #fbfbfe) !important;
+    --toolbarbutton-icon-fill-hover: light-dark(#15141a, #ffffff) !important;
+    --toolbarbutton-icon-fill-active: light-dark(#15141a, #ffffff) !important;
+    --toolbarbutton-icon-fill-attention: light-dark(#4886e6, #00cadb) !important;
+
+    /* Toolbar Bottom Separator (suppresses Nova purple border, native Proton neutral) */
+    --chrome-content-separator-color: light-dark(rgba(21, 20, 26, 0.1), rgba(251, 251, 254, 0.1)) !important;
+
+    /* Popups & Panels native Proton tokens */
+    --panel-background-color: light-dark(#ffffff, rgb(66, 65, 77)) !important;
+    --panel-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --panel-border-color: light-dark(rgb(240, 240, 244), rgb(82, 82, 94)) !important;
+
+    /* Primary Buttons (Proton Blue #0061e0 in Light, Cyan #00cadb in Dark) */
+    --button-background-color-primary: var(--color-accent-primary) !important;
+    --button-background-color-primary-hover: var(--color-accent-primary-hover) !important;
+    --button-background-color-primary-active: var(--color-accent-primary-active) !important;
+    --button-background-color-primary-disabled: light-dark(rgba(0, 97, 224, 0.4), rgba(0, 202, 219, 0.4)) !important;
+    --button-text-color-primary: light-dark(#ffffff, rgb(43, 42, 51)) !important;
+    --button-text-color-primary-hover: var(--button-text-color-primary) !important;
+    --button-text-color-primary-active: var(--button-text-color-primary) !important;
+    --button-border-color-primary: transparent !important;
+
+    /* Standard / Secondary Buttons (Proton Neutral Grays - NO Nova Purple Tint) */
+    --button-background-color: light-dark(rgba(207, 207, 216, 0.33), rgba(0, 0, 0, 0.33)) !important;
+    --button-background-color-hover: light-dark(rgba(207, 207, 216, 0.66), rgba(207, 207, 216, 0.2)) !important;
+    --button-background-color-active: light-dark(rgb(207, 207, 216), rgba(207, 207, 216, 0.4)) !important;
+    --button-border-color: transparent !important;
+    --button-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+
+    /* Toolbar & Ghost Buttons Hovers (Neutral in both light & dark) */
+    --toolbarbutton-background-color-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
+    --toolbarbutton-background-color-active: color-mix(in srgb, currentColor 18%, transparent) !important;
+
+    --button-background-color-ghost: transparent !important;
+    --button-background-color-ghost-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
+    --button-background-color-ghost-active: color-mix(in srgb, currentColor 18%, transparent) !important;
+    --button-background-color-ghost-disabled: transparent !important;
+    --button-background-color-ghost-selected: var(--button-background-color-ghost-active) !important;
+
+    /* Menus & Subviews (.subviewbutton & panelUI items neutral hover) */
+    --button-background-color-menu-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
+    --button-background-color-menu-active: color-mix(in srgb, currentColor 18%, transparent) !important;
+    --button-text-color-menu: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --button-text-color-menu-hover: currentColor !important;
+
+    /* Base Proton Palette Tokens (replaces Nova dark hex tokens with native Proton OKLCH design system) */
+    --color-blue-0: oklch(97% 0.05 260) !important;
+    --color-blue-20: oklch(83% 0.17 260) !important;
+    --color-blue-70: oklch(48% 0.2 260) !important;
+
+    --color-purple-0: oklch(97% 0.05 315) !important;
+    --color-purple-20: oklch(83% 0.14 315) !important;
+    --color-purple-70: oklch(48% 0.2 315) !important;
+
+    --color-cyan-0: oklch(97% 0.05 205) !important;
+    --color-cyan-20: oklch(83% 0.11 205) !important;
+    --color-cyan-70: oklch(48% 0.2 205) !important;
+
+    --color-orange-0: oklch(97% 0.05 50) !important;
+    --color-orange-20: oklch(86% 0.14 50) !important;
+    --color-orange-70: oklch(48% 0.2 50) !important;
+
+    --color-yellow-0: oklch(97% 0.05 90) !important;
+    --color-yellow-20: oklch(86% 0.14 90) !important;
+    --color-yellow-70: oklch(51% 0.23 90) !important;
+
+    --color-pink-0: oklch(97% 0.05 360) !important;
+    --color-pink-20: oklch(83% 0.14 360) !important;
+    --color-pink-70: oklch(48% 0.2 360) !important;
+
+    --color-green-0: oklch(97% 0.05 145) !important;
+    --color-green-20: oklch(83% 0.14 145) !important;
+    --color-green-70: oklch(48% 0.2 145) !important;
+
+    --color-red-0: oklch(97% 0.05 15) !important;
+    --color-red-20: oklch(83% 0.14 15) !important;
+    --color-red-70: oklch(48% 0.2 15) !important;
+
+    /* Tab Groups Proton Native Palette (from tabs.css) */
+    --tab-group-blue: light-dark(var(--color-blue-70), var(--color-blue-20)) !important;
+    --tab-group-blue-invert: light-dark(var(--color-blue-0), var(--color-blue-70)) !important;
+    --tab-group-blue-pale: var(--color-blue-0) !important;
+
+    --tab-group-purple: light-dark(var(--color-purple-70), var(--color-purple-20)) !important;
+    --tab-group-purple-invert: light-dark(var(--color-purple-0), var(--color-purple-70)) !important;
+    --tab-group-purple-pale: var(--color-purple-0) !important;
+
+    --tab-group-cyan: light-dark(var(--color-cyan-70), var(--color-cyan-20)) !important;
+    --tab-group-cyan-invert: light-dark(var(--color-cyan-0), var(--color-cyan-70)) !important;
+    --tab-group-cyan-pale: var(--color-cyan-0) !important;
+
+    --tab-group-orange: light-dark(var(--color-orange-70), var(--color-orange-20)) !important;
+    --tab-group-orange-invert: light-dark(var(--color-orange-0), var(--color-orange-70)) !important;
+    --tab-group-orange-pale: var(--color-orange-0) !important;
+
+    --tab-group-yellow: light-dark(var(--color-yellow-70), var(--color-yellow-20)) !important;
+    --tab-group-yellow-invert: light-dark(var(--color-yellow-0), var(--color-yellow-70)) !important;
+    --tab-group-yellow-pale: var(--color-yellow-0) !important;
+
+    --tab-group-pink: light-dark(var(--color-pink-70), var(--color-pink-20)) !important;
+    --tab-group-pink-invert: light-dark(var(--color-pink-0), var(--color-pink-70)) !important;
+    --tab-group-pink-pale: var(--color-pink-0) !important;
+
+    --tab-group-green: light-dark(var(--color-green-70), var(--color-green-20)) !important;
+    --tab-group-green-invert: light-dark(var(--color-green-0), var(--color-green-70)) !important;
+    --tab-group-green-pale: var(--color-green-0) !important;
+
+    --tab-group-red: light-dark(var(--color-red-70), var(--color-red-20)) !important;
+    --tab-group-red-invert: light-dark(var(--color-red-0), var(--color-red-70)) !important;
+    --tab-group-red-pale: var(--color-red-0) !important;
+
+    --tab-group-gray: light-dark(#5e6a77, #99a6b4) !important;
+    --tab-group-gray-invert: light-dark(#f2f9ff, #5e6a77) !important;
+    --tab-group-gray-pale: #f2f9ff !important;
+
+    /* Neutral Grey Shadows & Urlbar / UrlbarView Colors */
+    --chrome-box-shadow: light-dark(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45)) !important;
+    --urlbar-background-box-shadow-open: 0 2px 14px var(--chrome-box-shadow) !important;
+    --urlbar-icon-fill-opacity: 0.72 !important;
+    --urlbar-box-background-color: light-dark(#ffffff, rgb(66, 65, 77)) !important;
+    --urlbar-box-background-color-focus: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.1)) !important;
+    --urlbar-box-background-color-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
+    --urlbar-box-background-color-active: color-mix(in srgb, currentColor 18%, transparent) !important;
+    --urlbar-box-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --urlbar-box-text-color-hover: var(--urlbar-box-text-color) !important;
+    --urlbar-box-text-color-active: var(--urlbar-box-text-color) !important;
+    --urlbar-box-text-color-focus: var(--urlbar-box-text-color) !important;
+
+    --urlbarview-separator-color: light-dark(rgb(240, 240, 244), rgb(82, 82, 94)) !important;
+    --urlbarview-action-button-background-color: light-dark(
+      color-mix(in srgb, var(--color-gray-20, #e0e0e6) 50%, transparent),
+      color-mix(in srgb, currentColor 8.5%, transparent)
+    ) !important;
+    --urlbarview-action-button-background-color-hover: light-dark(
+      var(--color-gray-20, #e0e0e6),
+      color-mix(in srgb, currentColor 17%, transparent)
+    ) !important;
+    --urlbarview-background-color-selected: light-dark(#e0e0e6, rgb(43, 42, 51)) !important;
+    --urlbarview-text-color-selected: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --urlbarview-text-color-secondary: color-mix(in srgb, currentColor 73%, transparent) !important;
+    --urlbarview-text-color-action: light-dark(rgb(91, 91, 102), rgb(191, 191, 201)) !important;
+    --urlbarview-background-color-hover: light-dark(rgb(240, 240, 244), rgba(255, 255, 255, 0.1)) !important;
+
+    /* Menu Promos & Banners (Suppresses Nova vibrant purple banners) */
+    --panel-banner-item-background-color: light-dark(rgba(0, 97, 224, 0.08), rgba(0, 202, 219, 0.12)) !important;
+    --panel-banner-item-icon-color: var(--color-accent-primary) !important;
+    --panel-item-badge-background-color: var(--color-accent-primary) !important;
+    --promo-background-color-vibrant: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
+    --promo-border-color-vibrant: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
+    --promo-message-text-color-vibrant: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+
+    /* Toggles & Form Controls (Proton Blue / Cyan) */
+    --toggle-background-color-pressed: var(--color-accent-primary) !important;
+    --toggle-background-color-pressed-hover: var(--color-accent-primary-hover) !important;
+    --toggle-background-color-pressed-active: var(--color-accent-primary-active) !important;
+    --toggle-dot-background-color: #ffffff !important;
+
+    /* Information Banners & Alerts (Authentic Proton Blue Tokens) */
+    --background-color-information: light-dark(#edf5ff, #1c2438) !important;
+    --icon-color-information: var(--color-accent-primary) !important;
+    --info-bar-border-color: light-dark(rgba(0, 97, 224, 0.25), rgba(0, 202, 219, 0.25)) !important;
+    --icon-color-accent-primary-desaturated: var(--color-accent-primary) !important;
+    --swgt-note-background: light-dark(#edf5ff, rgba(0, 202, 219, 0.12)) !important;
+    --swgt-note-border-color: light-dark(rgba(0, 97, 224, 0.25), rgba(0, 202, 219, 0.25)) !important;
+  }
+
+  /* macOS native Proton soft-blue focus ring on the address bar */
+  @media (-moz-platform: macos) {
+    :root:is([theme-in-app], :not([lwtheme])),
+    :root:is([theme-in-app], :not([lwtheme])) :is(#urlbar, .urlbar) {
+      --toolbar-field-border-color-focus: light-dark(#80b1f7, #00ddff) !important;
+    }
+  }
+
+  /* Native Proton icon opacity in dark mode (tokens.css) */
+  @media (prefers-color-scheme: dark) {
+    :root:is([theme-in-app], :not([lwtheme])):not([lwt-toolbar="light"]),
+    :root:is([theme-in-app], :not([lwtheme])):not([lwt-toolbar="light"]) :is(#urlbar, .urlbar) {
+      --urlbar-icon-fill-opacity: 1 !important;
+    }
+  }
+
+  :root:is([theme-in-app], :not([lwtheme])):is([privatebrowsingmode], [lwt-toolbar="dark"], [lwtheme-brighttext]),
+  :root:is([theme-in-app], :not([lwtheme])):is([privatebrowsingmode], [lwt-toolbar="dark"], [lwtheme-brighttext]) :is(#urlbar, .urlbar) {
+    --urlbar-icon-fill-opacity: 1 !important;
+  }
+
+  /* Web Components Color Tokens in Chrome UI */
+  :root:is([theme-in-app], :not([lwtheme])) :is(
+    moz-button,
+    moz-button-group,
+    moz-box-button,
+    moz-box-item,
+    moz-card,
+    moz-message-bar,
+    panel-item,
+    panel-list
+  ) {
+    --message-bar-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    --message-bar-icon-color: var(--color-accent-primary) !important;
+    --message-bar-icon-background-color: light-dark(#edf5ff, #1c2438) !important;
+    --message-bar-border-color: light-dark(rgba(0, 97, 224, 0.2), rgba(0, 202, 219, 0.2)) !important;
+  }
+
+  /* Nova promos in menus (Help: moz-promo, History/Bookmarks: sync-promo -> Shadow DOM moz-promo) */
+  :root:is([theme-in-app], :not([lwtheme])) :is(moz-promo, sync-promo) {
+    --promo-background-color: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
+    --promo-background-color-vibrant: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
+    --promo-border-color: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
+    --promo-border-color-vibrant: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12)) !important;
+    --promo-border-radius: var(--border-radius-medium, 8px) !important;
+    --promo-message-text-color-vibrant: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --background-color-box-info: light-dark(rgb(240, 240, 244), rgb(43, 42, 51)) !important;
+    /* Inherited tokens that pierce the Shadow DOM of <sync-promo> -> <moz-promo type="vibrant"> */
+    --color-violet-desaturated-10: rgb(240, 240, 244) !important;
+    --color-violet-desaturated-70: rgb(43, 42, 51) !important;
+    --color-violet-80: rgb(21, 20, 26) !important;
+    --color-violet-0: rgb(251, 251, 254) !important;
   }
 }
 
-#nav-bar {
-  background-color: var(--toolbar-background-color) !important;
-  box-shadow: none !important;
+/* --------------------------------------------------------------------------
+   3. TOOLBOX & NAV-BAR BACKGROUND (Proton Native Opaque / Light & Dark)
+   -------------------------------------------------------------------------- */
+@media not ((forced-colors) or (-moz-native-theme)) {
+  :root#main-window:is([theme-in-app], :not([lwtheme])),
+  :root#main-window:is([theme-in-app], :not([lwtheme])) > body,
+  :root#main-window:is([theme-in-app], :not([lwtheme])) :is(
+    #navigator-toolbox,
+    #navigator-toolbox:-moz-window-inactive,
+    #nav-bar,
+    #toolbar-menubar,
+    #TabsToolbar,
+    toolbar.browser-titlebar,
+    #PersonalToolbar,
+    #sidebar-box,
+    #sidebar-main,
+    #tabbrowser-tabpanels,
+    #tabbrowser-tabpanels .browserContainer
+  ) {
+    background-image: none !important;
+  }
+
+  /* Neutralizes macOS native Cocoa vibrancy / translucency from Firefox Nova */
+  :root#main-window:is([theme-in-app], :not([lwtheme])) #navigator-toolbox::after {
+    display: none !important;
+    appearance: none !important;
+  }
+
+  :root#main-window:is([theme-in-app], :not([lwtheme])),
+  :root#main-window:is([theme-in-app], :not([lwtheme])) > body,
+  :root#main-window:is([theme-in-app], :not([lwtheme])) :is(
+    #navigator-toolbox,
+    #toolbar-menubar,
+    #TabsToolbar,
+    toolbar.browser-titlebar
+  ) {
+    background-color: var(--toolbox-background-color) !important;
+  }
+
+  :root#main-window:is([theme-in-app], :not([lwtheme])):-moz-window-inactive,
+  :root#main-window:is([theme-in-app], :not([lwtheme])) > body:-moz-window-inactive,
+  :root#main-window:is([theme-in-app], :not([lwtheme])) :is(
+    #navigator-toolbox:-moz-window-inactive,
+    #toolbar-menubar:-moz-window-inactive,
+    #TabsToolbar:-moz-window-inactive,
+    toolbar.browser-titlebar:-moz-window-inactive
+  ) {
+    background-color: var(--toolbox-background-color-inactive) !important;
+    background-image: none !important;
+  }
+
+  @media not -moz-pref("sidebar.verticalTabs") {
+    :root#main-window:is([theme-in-app], :not([lwtheme])) #browser {
+      background-color: var(--toolbar-background-color) !important;
+      color: var(--toolbar-text-color) !important;
+    }
+  }
+
+  :root#main-window:is([theme-in-app], :not([lwtheme])) #nav-bar {
+    background-color: var(--toolbar-background-color) !important;
+    box-shadow: none !important;
+  }
+
+  :root#main-window:is([theme-in-app], :not([lwtheme])) #tabbrowser-tabpanels .browserContainer {
+    background: var(--tabpanel-background-color, light-dark(#ffffff, #2b2a33)) padding-box !important;
+  }
 }
 
 #tabbrowser-tabpanels {
   background-color: transparent !important;
 }
 
-#tabbrowser-tabpanels .browserContainer {
-  background: var(--tabpanel-background-color, light-dark(#ffffff, #2b2a33)) padding-box !important;
-}
-
 /* --------------------------------------------------------------------------
    4. TOOLBAR ICONS COLOR (Proton Slate Gray #5b5b66 - NOT Pure Black)
    -------------------------------------------------------------------------- */
-:is(#navigator-toolbox, toolbar, #nav-bar, #TabsToolbar, #PersonalToolbar, #customization-palette)
-  :is(.toolbarbutton-1, toolbarbutton):not([starred]):not([attention]):not(.private-browsing-indicator-button):not(.titlebar-button)
-  :is(.toolbarbutton-icon, .urlbar-icon, #downloads-indicator-icon):not(#urlbar-revert-button):not(#star-button[starred]),
-#page-action-buttons :is(.urlbar-page-action:not([readeractive]):not([translationsactive]), #star-button-box) image:not([starred]):not(#translations-button-circle-arrows),
-#tracking-protection-icon-container image,
-#identity-box:not(.notSecure):not(.mixedActiveContent):not(.httpsOnlyErrorPage):not(.weakCipher):not(.certErrorPage) image,
-.searchmode-switcher-dropmarker {
-  -moz-context-properties: fill, fill-opacity, stroke, stroke-opacity !important;
-  fill: var(--toolbarbutton-icon-fill, #5b5b66) !important;
-}
+@media not ((forced-colors) or (-moz-native-theme)) {
+  :root:is([theme-in-app], :not([lwtheme])) :is(#navigator-toolbox, toolbar, #nav-bar, #TabsToolbar, #PersonalToolbar, #customization-palette)
+    :is(.toolbarbutton-1, toolbarbutton):not([starred]):not([attention]):not(.private-browsing-indicator-button):not(.titlebar-button)
+    :is(.toolbarbutton-icon, .urlbar-icon, #downloads-indicator-icon):not(#urlbar-revert-button):not(#star-button[starred]),
+  :root:is([theme-in-app], :not([lwtheme])) #page-action-buttons :is(.urlbar-page-action:not([readeractive]):not([translationsactive]), #star-button-box) image:not([starred]):not(#translations-button-circle-arrows),
+  :root:is([theme-in-app], :not([lwtheme])) #tracking-protection-icon-container image,
+  :root:is([theme-in-app], :not([lwtheme])) #identity-box:not(.notSecure):not(.mixedActiveContent):not(.httpsOnlyErrorPage):not(.weakCipher):not(.certErrorPage) image,
+  :root:is([theme-in-app], :not([lwtheme])) .searchmode-switcher-dropmarker {
+    -moz-context-properties: fill, fill-opacity, stroke, stroke-opacity !important;
+    fill: var(--toolbarbutton-icon-fill, #5b5b66) !important;
+  }
 
-:is(#navigator-toolbox, toolbar, #nav-bar, #TabsToolbar, #PersonalToolbar, #customization-palette)
-  :is(.toolbarbutton-1, toolbarbutton):not([starred]):not([attention]):not(.private-browsing-indicator-button):not(.titlebar-button):hover
-  :is(.toolbarbutton-icon, .urlbar-icon):not(#urlbar-revert-button):not(#star-button[starred]),
-#page-action-buttons :is(.urlbar-page-action:not([readeractive]):not([translationsactive]), #star-button-box):hover image:not([starred]):not(#translations-button-circle-arrows) {
-  fill: var(--toolbarbutton-icon-fill-hover, #15141a) !important;
+  :root:is([theme-in-app], :not([lwtheme])) :is(#navigator-toolbox, toolbar, #nav-bar, #TabsToolbar, #PersonalToolbar, #customization-palette)
+    :is(.toolbarbutton-1, toolbarbutton):not([starred]):not([attention]):not(.private-browsing-indicator-button):not(.titlebar-button):hover
+    :is(.toolbarbutton-icon, .urlbar-icon):not(#urlbar-revert-button):not(#star-button[starred]),
+  :root:is([theme-in-app], :not([lwtheme])) #page-action-buttons :is(.urlbar-page-action:not([readeractive]):not([translationsactive]), #star-button-box):hover image:not([starred]):not(#translations-button-circle-arrows) {
+    fill: var(--toolbarbutton-icon-fill-hover, #15141a) !important;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -604,10 +647,15 @@ toolbar.browser-titlebar:-moz-window-inactive {
 .tabbrowser-tab .tab-background {
   border-radius: var(--tab-border-radius, 8px) !important;
   margin-block: var(--tab-margin-block, 4px) !important;
-  border: none !important;
   background-clip: border-box !important;
-  background: transparent !important;
+  background-color: transparent !important;
   transition: background-color 150ms ease !important;
+}
+
+@media not (forced-colors) {
+  .tabbrowser-tab .tab-background {
+    border: none !important;
+  }
 }
 
 .tabbrowser-tab:hover:not([selected]) .tab-background {
@@ -620,16 +668,13 @@ toolbar.browser-titlebar:-moz-window-inactive {
   box-shadow: var(--tab-box-shadow-selected) !important;
 }
 
-/* Close Button in Tabs (Proton neat 12px cross with 6px padding, gray #5b5b66 by default) */
+/* Close Button in Tabs (Proton neat 12px cross with 6px padding; colors follow active AMO/native theme) */
 .tabbrowser-tab .tab-close-button {
   width: 24px !important;
   height: 24px !important;
   padding: 6px !important;
   box-sizing: border-box !important;
   border-radius: calc(var(--tab-border-radius, 8px) - 3px) !important;
-  -moz-context-properties: fill, fill-opacity !important;
-  fill: var(--toolbarbutton-icon-fill, #5b5b66) !important;
-  color: var(--toolbarbutton-icon-fill, #5b5b66) !important;
   background-color: transparent !important;
   border: none !important;
   outline: none !important;
@@ -638,20 +683,37 @@ toolbar.browser-titlebar:-moz-window-inactive {
 .tabbrowser-tab .tab-close-button > .toolbarbutton-icon {
   width: 12px !important;
   height: 12px !important;
-  fill: var(--toolbarbutton-icon-fill, #5b5b66) !important;
-  color: var(--toolbarbutton-icon-fill, #5b5b66) !important;
 }
 
 .tabbrowser-tab .tab-close-button:hover {
   background-color: var(--button-background-color-ghost-hover) !important;
-  fill: var(--toolbarbutton-icon-fill-hover, #15141a) !important;
-  color: var(--toolbarbutton-icon-fill-hover, #15141a) !important;
 }
 
 .tabbrowser-tab .tab-close-button:hover:active {
   background-color: var(--button-background-color-ghost-active) !important;
-  fill: var(--toolbarbutton-icon-fill-active, #15141a) !important;
-  color: var(--toolbarbutton-icon-fill-active, #15141a) !important;
+}
+
+@media not ((forced-colors) or (-moz-native-theme)) {
+  :root:is([theme-in-app], :not([lwtheme])) .tabbrowser-tab .tab-close-button {
+    -moz-context-properties: fill, fill-opacity !important;
+    fill: var(--toolbarbutton-icon-fill, #5b5b66) !important;
+    color: var(--toolbarbutton-icon-fill, #5b5b66) !important;
+  }
+
+  :root:is([theme-in-app], :not([lwtheme])) .tabbrowser-tab .tab-close-button > .toolbarbutton-icon {
+    fill: var(--toolbarbutton-icon-fill, #5b5b66) !important;
+    color: var(--toolbarbutton-icon-fill, #5b5b66) !important;
+  }
+
+  :root:is([theme-in-app], :not([lwtheme])) .tabbrowser-tab .tab-close-button:hover {
+    fill: var(--toolbarbutton-icon-fill-hover, #15141a) !important;
+    color: var(--toolbarbutton-icon-fill-hover, #15141a) !important;
+  }
+
+  :root:is([theme-in-app], :not([lwtheme])) .tabbrowser-tab .tab-close-button:hover:active {
+    fill: var(--toolbarbutton-icon-fill-active, #15141a) !important;
+    color: var(--toolbarbutton-icon-fill-active, #15141a) !important;
+  }
 }
 
 /* Container Tab Indicator (Context Line) properly preserved at the top of container tabs */
@@ -1181,34 +1243,35 @@ menupopup menu {
   border-radius: var(--panel-menuitem-border-radius, 4px) !important;
 }
 
-/* Context menus & XUL popups menuitem hover */
-menupopup menuitem:hover:not([disabled]),
-menupopup menu:hover:not([disabled]),
-menupopup menuitem[_moz-menuactive]:not([disabled]),
-menupopup menu[_moz-menuactive]:not([disabled]) {
-  background-color: light-dark(rgb(240, 240, 244), rgb(56, 54, 65)) !important;
-  color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-}
+/* Context menus, panel subviews, text selection & native controls (Proton colors guarded for AMO/native/HCM) */
+@media not ((forced-colors) or (-moz-native-theme)) {
+  :root:is([theme-in-app], :not([lwtheme])) menupopup menuitem:hover:not([disabled]),
+  :root:is([theme-in-app], :not([lwtheme])) menupopup menu:hover:not([disabled]),
+  :root:is([theme-in-app], :not([lwtheme])) menupopup menuitem[_moz-menuactive]:not([disabled]),
+  :root:is([theme-in-app], :not([lwtheme])) menupopup menu[_moz-menuactive]:not([disabled]) {
+    background-color: light-dark(rgb(240, 240, 244), rgb(56, 54, 65)) !important;
+    color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+  }
 
-.panel-subview-body .subviewbutton:hover:not([disabled]) {
-  background-color: var(--button-background-color-menu-hover) !important;
-  color: var(--button-text-color-menu-hover) !important;
-}
+  :root:is([theme-in-app], :not([lwtheme])) .panel-subview-body .subviewbutton:hover:not([disabled]) {
+    background-color: var(--button-background-color-menu-hover) !important;
+    color: var(--button-text-color-menu-hover) !important;
+  }
 
-.panel-subview-body .subviewbutton:hover:active:not([disabled]) {
-  background-color: var(--button-background-color-menu-active) !important;
-}
+  :root:is([theme-in-app], :not([lwtheme])) .panel-subview-body .subviewbutton:hover:active:not([disabled]) {
+    background-color: var(--button-background-color-menu-active) !important;
+  }
 
-/* Text selection: native Proton blue/cyan tint */
-::selection {
-  background-color: light-dark(rgba(0, 97, 224, 0.3), rgba(0, 202, 219, 0.35)) !important;
-  color: currentColor !important;
-}
+  :root:is([theme-in-app], :not([lwtheme])) ::selection,
+  :root:is([theme-in-app], :not([lwtheme]))::selection {
+    background-color: light-dark(rgba(0, 97, 224, 0.3), rgba(0, 202, 219, 0.35)) !important;
+    color: currentColor !important;
+  }
 
-/* Native form controls */
-input[type="checkbox"]:checked,
-input[type="radio"]:checked {
-  accent-color: var(--color-accent-primary) !important;
+  :root:is([theme-in-app], :not([lwtheme])) input[type="checkbox"]:checked,
+  :root:is([theme-in-app], :not([lwtheme])) input[type="radio"]:checked {
+    accent-color: var(--color-accent-primary) !important;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1279,22 +1342,6 @@ sidebar-opentabs-preview {
   url-prefix("chrome://global/content/megalist/"),
   url-prefix("chrome://browser/content/genai/"),
   url-prefix("chrome://browser/content/webext-panels.xhtml") {
-  :root,
-  :root.nova-tokens,
-  :root:-moz-window-inactive,
-  body,
-  body:-moz-window-inactive,
-  window.sidebar-panel,
-  window.sidebar-panel:-moz-window-inactive,
-  window#webextpanels-window,
-  window#webextpanels-window:-moz-window-inactive {
-    appearance: none !important;
-    -moz-default-appearance: none !important;
-    background-color: var(--sidebar-background-color) !important;
-    background-image: none !important;
-    color: var(--sidebar-text-color) !important;
-  }
-
   :root[lwt-sidebar="light"],
   :root[lwt-sidebar="light"] body {
     color-scheme: light !important;
@@ -1305,6 +1352,7 @@ sidebar-opentabs-preview {
     color-scheme: dark !important;
   }
 
+  /* Universal Proton sidebar geometry (active for all themes including AMO and native Linux) */
   :root,
   :root.nova-tokens,
   sidebar-history,
@@ -1318,39 +1366,13 @@ sidebar-opentabs-preview {
   login-line,
   concealed-login-line,
   notification-message-bar {
-    --sidebar-background-color: light-dark(#ffffff, rgb(28, 27, 34)) !important;
-    --sidebar-text-color: light-dark(rgb(21, 20, 26), rgb(249, 249, 250)) !important;
-    --sidebar-box-background: light-dark(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.05)) !important;
-    --sidebar-box-color: currentColor !important;
-    --sidebar-box-border-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.24)) !important;
-    --sidebar-box-border-width: 0.5px !important;
-    --sidebar-box-border: var(--sidebar-box-border-width) solid var(--sidebar-box-border-color) !important;
-
-    /* In-content / sidebar standard buttons & neutral Proton borders/status colors */
-    --button-background-color: color-mix(in srgb, currentColor 7%, transparent) !important;
-    --button-background-color-hover: color-mix(in srgb, currentColor 14%, transparent) !important;
-    --button-background-color-active: color-mix(in srgb, currentColor 21%, transparent) !important;
-    --border-color: light-dark(#bfbfc9, #5b5b66) !important;
-    --border-color-interactive: light-dark(#8f8f9d, #bfbfc9) !important;
-    --color-accent-attention: light-dark(#2ac3a2, #54ffbd) !important;
-    --icon-color: light-dark(#5b5b66, #fbfbfe) !important;
-    --icon-color-critical: light-dark(oklch(55% 0.21 15), oklch(83% 0.14 15)) !important;
-    --icon-color-information: light-dark(oklch(55% 0.24 260), oklch(83% 0.17 260)) !important;
-    --icon-color-success: light-dark(oklch(55% 0.21 145), oklch(83% 0.14 145)) !important;
-    --icon-color-warning: light-dark(oklch(58% 0.24 90), oklch(86% 0.14 90)) !important;
-    --background-color-warning: light-dark(oklch(97% 0.05 90), oklch(34% 0.17 90)) !important;
-    --background-color-critical: light-dark(oklch(97% 0.05 15), oklch(34% 0.14 15)) !important;
-    --background-color-information: light-dark(oklch(97% 0.05 260), oklch(34% 0.14 260)) !important;
-    --background-color-success: light-dark(oklch(97% 0.05 145), oklch(34% 0.14 145)) !important;
-
-    /* Native Proton search input (#42414d dark, 8px corners & 12px search icon vs Nova pill & 16px) */
-    --input-background-color: light-dark(#ffffff, #42414d) !important;
+    /* Native Proton search input sizing & 12px icon vs Nova pill & 16px */
     --input-border-radius: var(--border-radius-medium, 8px) !important;
     --input-search-border-radius: var(--border-radius-medium, 8px) !important;
     --input-icon-size: var(--icon-size-xsmall, 12px) !important;
     --input-search-icon-size: var(--icon-size-xsmall, 12px) !important;
 
-    /* Proton sidebar card styling */
+    /* Proton sidebar card geometry */
     --card-border-radius: var(--border-radius-medium, 8px) !important;
     --card-box-shadow: none !important;
   }
@@ -1381,22 +1403,102 @@ sidebar-opentabs-preview {
     background-image: none !important;
     color: var(--sidebar-text-color) !important;
   }
+
+  /* Guard sidebar palette against forced-colors, -moz-native-theme, and AMO [lwt-sidebar] themes */
+  @media not ((forced-colors) or (-moz-native-theme)) {
+    :root,
+    :root.nova-tokens,
+    :root:-moz-window-inactive,
+    body,
+    body:-moz-window-inactive,
+    window.sidebar-panel,
+    window.sidebar-panel:-moz-window-inactive,
+    window#webextpanels-window,
+    window#webextpanels-window:-moz-window-inactive {
+      appearance: none !important;
+      -moz-default-appearance: none !important;
+      background-color: var(--sidebar-background-color) !important;
+      background-image: none !important;
+      color: var(--sidebar-text-color) !important;
+    }
+
+    :root:not([lwt-sidebar]):not([style*="--sidebar-background-color"]),
+    :root.nova-tokens:not([lwt-sidebar]):not([style*="--sidebar-background-color"]) {
+      --sidebar-background-color: light-dark(#ffffff, rgb(28, 27, 34)) !important;
+    }
+
+    :root:not([lwt-sidebar]):not([style*="--sidebar-text-color"]),
+    :root.nova-tokens:not([lwt-sidebar]):not([style*="--sidebar-text-color"]) {
+      --sidebar-text-color: light-dark(rgb(21, 20, 26), rgb(249, 249, 250)) !important;
+    }
+
+    :root,
+    :root.nova-tokens {
+      --sidebar-box-background: light-dark(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.05)) !important;
+      --sidebar-box-color: currentColor !important;
+      --sidebar-box-border-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.24)) !important;
+      --sidebar-box-border-width: 0.5px !important;
+      --sidebar-box-border: var(--sidebar-box-border-width) solid var(--sidebar-box-border-color) !important;
+    }
+
+    :root:not([lwt-sidebar]),
+    :root.nova-tokens:not([lwt-sidebar]),
+    :root:not([lwt-sidebar]) :is(
+      sidebar-history,
+      sidebar-bookmarks,
+      sidebar-opentabs,
+      sidebar-syncedtabs,
+      sidebar-customize,
+      megalist-alpha,
+      password-card,
+      login-form,
+      login-line,
+      concealed-login-line,
+      notification-message-bar
+    ) {
+      /* In-content / sidebar standard buttons & neutral Proton borders/status colors */
+      --button-background-color: color-mix(in srgb, currentColor 7%, transparent) !important;
+      --button-background-color-hover: color-mix(in srgb, currentColor 14%, transparent) !important;
+      --button-background-color-active: color-mix(in srgb, currentColor 21%, transparent) !important;
+      --border-color: light-dark(#bfbfc9, #5b5b66) !important;
+      --border-color-interactive: light-dark(#8f8f9d, #bfbfc9) !important;
+      --color-accent-attention: light-dark(#2ac3a2, #54ffbd) !important;
+      --icon-color: light-dark(#5b5b66, #fbfbfe) !important;
+      --icon-color-critical: light-dark(oklch(55% 0.21 15), oklch(83% 0.14 15)) !important;
+      --icon-color-information: light-dark(oklch(55% 0.24 260), oklch(83% 0.17 260)) !important;
+      --icon-color-success: light-dark(oklch(55% 0.21 145), oklch(83% 0.14 145)) !important;
+      --icon-color-warning: light-dark(oklch(58% 0.24 90), oklch(86% 0.14 90)) !important;
+      --background-color-warning: light-dark(oklch(97% 0.05 90), oklch(34% 0.17 90)) !important;
+      --background-color-critical: light-dark(oklch(97% 0.05 15), oklch(34% 0.14 15)) !important;
+      --background-color-information: light-dark(oklch(97% 0.05 260), oklch(34% 0.14 260)) !important;
+      --background-color-success: light-dark(oklch(97% 0.05 145), oklch(34% 0.14 145)) !important;
+      --input-background-color: light-dark(#ffffff, #42414d) !important;
+    }
+  }
 }
 
 /* Restore Proton moz-card border, padding, and backdrop inside sidebar Shadow DOMs
    (neutralizes Nova border: none / --card-padding: 0 in sidebar.css) */
 @-moz-document url-prefix("chrome://browser/content/sidebar/") {
   moz-card:not(.nested-card):not(.promo-card) {
-    --card-background-color: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
     --card-padding: 8px !important;
-    --card-heading-padding-inline: 12px !important;
-    background-color: var(--card-background-color) !important;
-    border: var(--sidebar-box-border, 0.5px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.24))) !important;
     border-radius: var(--border-radius-medium, 8px) !important;
   }
 
-  moz-card:not(.nested-card):not(.promo-card)::part(moz-card-heading-wrapper) {
-    padding-inline: var(--card-heading-padding-inline, 12px) !important;
+  @media not ((forced-colors) or (-moz-native-theme)) {
+    :root:not([lwt-sidebar]):not([style*="--sidebar-background-color"]) {
+      --proton-sidebar-card-bg: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
+    }
+
+    :root:is([lwt-sidebar], [style*="--sidebar-background-color"]) {
+      --proton-sidebar-card-bg: var(--sidebar-box-background, light-dark(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.05))) !important;
+    }
+
+    moz-card:not(.nested-card):not(.promo-card) {
+      --card-background-color: var(--proton-sidebar-card-bg) !important;
+      background-color: var(--card-background-color) !important;
+      border: var(--sidebar-box-border, 0.5px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.24))) !important;
+    }
   }
 }
 
@@ -1408,19 +1510,12 @@ sidebar-opentabs-preview {
   }
 
   .extensions,
-  moz-fieldset::part(inputs),
   fieldset > #inputs[part="inputs"] {
-    background-color: var(--sidebar-box-background, light-dark(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.05))) !important;
-    border: var(--sidebar-box-border, 0.5px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.24))) !important;
     border-radius: var(--border-radius-medium, 8px) !important;
   }
 
   moz-checkbox {
     padding-block: 8px !important;
-  }
-
-  moz-checkbox:not(:last-of-type) {
-    border-bottom: 0.5px solid var(--panel-separator-color, color-mix(in srgb, currentColor 25%, transparent)) !important;
   }
 
   moz-checkbox > moz-checkbox:last-of-type {
@@ -1430,16 +1525,33 @@ sidebar-opentabs-preview {
   moz-checkbox:is(#expand-on-hover, #hide-sidebar) {
     margin-block-start: 0 !important;
   }
+
+  @media not ((forced-colors) or (-moz-native-theme)) {
+    .extensions,
+    fieldset > #inputs[part="inputs"] {
+      background-color: var(--sidebar-box-background, light-dark(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.05))) !important;
+      border: var(--sidebar-box-border, 0.5px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.24))) !important;
+    }
+
+    moz-checkbox:not(:last-of-type) {
+      border-bottom: 0.5px solid var(--panel-separator-color, color-mix(in srgb, currentColor 25%, transparent)) !important;
+    }
+  }
 }
 
 /* --------------------------------------------------------------------------
    9. FINDBAR
    -------------------------------------------------------------------------- */
 findbar {
-  border-top-color: var(--chrome-content-separator-color) !important;
-  background-color: light-dark(-moz-dialog, rgb(43, 42, 51)) !important;
-  color: var(--toolbar-text-color) !important;
   --findbar-container-height: 28px !important;
+}
+
+@media not ((forced-colors) or (-moz-native-theme)) {
+  :root:is([theme-in-app], :not([lwtheme])) findbar {
+    border-top-color: var(--chrome-content-separator-color) !important;
+    background-color: light-dark(-moz-dialog, rgb(43, 42, 51)) !important;
+    color: var(--toolbar-text-color) !important;
+  }
 }
 
 findbar .findbar-textbox {

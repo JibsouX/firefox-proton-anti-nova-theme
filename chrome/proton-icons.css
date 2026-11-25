@@ -317,22 +317,27 @@
 
 #star-button[starred],
 #pageAction-panel-bookmark[starred] {
-  list-style-image: url("icons/bookmark-starred.svg") !important;
+  list-style-image: url("icons/bookmark.svg") !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  #star-button[starred],
-  #pageAction-panel-bookmark[starred] {
+@media not ((forced-colors) or (-moz-native-theme)) {
+  :root:is([theme-in-app], :not([lwtheme])) :is(#star-button[starred], #pageAction-panel-bookmark[starred]) {
+    list-style-image: url("icons/bookmark-starred.svg") !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:is([theme-in-app], :not([lwtheme])) :is(#star-button[starred], #pageAction-panel-bookmark[starred]) {
+      list-style-image: url("icons/bookmark-starred-dark.svg") !important;
+    }
+  }
+
+  :root:is([theme-in-app], :not([lwtheme])):is([privatebrowsingmode], [lwt-toolbar="dark"], [lwtheme-brighttext]) :is(#star-button[starred], #pageAction-panel-bookmark[starred]) {
     list-style-image: url("icons/bookmark-starred-dark.svg") !important;
   }
-}
 
-:root:is([privatebrowsingmode], [lwt-toolbar="dark"], [lwtheme-brighttext]) :is(#star-button[starred], #pageAction-panel-bookmark[starred]) {
-  list-style-image: url("icons/bookmark-starred-dark.svg") !important;
-}
-
-:root:not([privatebrowsingmode]):is([lwt-toolbar="light"], [lwtheme-brighttext="false"]) :is(#star-button[starred], #pageAction-panel-bookmark[starred]) {
-  list-style-image: url("icons/bookmark-starred.svg") !important;
+  :root:is([theme-in-app], :not([lwtheme])):not([privatebrowsingmode]):is([lwt-toolbar="light"], [lwtheme-brighttext="false"]) :is(#star-button[starred], #pageAction-panel-bookmark[starred]) {
+    list-style-image: url("icons/bookmark-starred.svg") !important;
+  }
 }
 
 #pageActionButton,
