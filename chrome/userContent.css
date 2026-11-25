@@ -8,48 +8,109 @@
       preserving about:blank, about:reader and chrome://devtools/)
    -------------------------------------------------------------------------- */
 @-moz-document
+  url-prefix("about:about"),
   url-prefix("about:addons"),
-  url-prefix("about:preferences"),
-  url-prefix("about:newtab"),
-  url-prefix("about:home"),
-  url-prefix("about:firefoxview"),
-  url-prefix("about:welcome"),
-  url-prefix("about:privatebrowsing"),
-  url-prefix("about:keyboard"),
-  url-prefix("about:protections"),
-  url-prefix("about:logins"),
+  url-prefix("about:blocked"),
+  url-prefix("about:buildconfig"),
+  url-prefix("about:cache"),
+  url-prefix("about:certificate"),
+  url-prefix("about:certerror"),
+  url-prefix("about:checkerboard"),
+  url-prefix("about:compat"),
   url-prefix("about:config"),
-  url-prefix("about:support"),
-  url-prefix("about:profiles"),
-  url-prefix("about:downloads"),
-  url-prefix("about:policies"),
-  url-prefix("about:networking"),
-  url-prefix("about:processes"),
-  url-prefix("about:memory"),
-  url-prefix("about:studies"),
-  url-prefix("about:telemetry"),
   url-prefix("about:crashes"),
+  url-prefix("about:credits"),
+  url-prefix("about:debugging"),
+  url-prefix("about:deleteprofile"),
+  url-prefix("about:downloads"),
+  url-prefix("about:editprofile"),
+  url-prefix("about:firefoxview"),
+  url-prefix("about:framecrashed"),
+  url-prefix("about:glean"),
+  url-prefix("about:home"),
+  url-prefix("about:httpsonlyerror"),
+  url-prefix("about:keyboard"),
+  url-prefix("about:license"),
+  url-prefix("about:logging"),
+  url-prefix("about:logins"),
+  url-prefix("about:memory"),
+  url-prefix("about:neterror"),
+  url-prefix("about:networking"),
+  url-prefix("about:newprofile"),
+  url-prefix("about:newtab"),
+  url-prefix("about:pdf"),
+  url-prefix("about:plugins"),
+  url-prefix("about:policies"),
+  url-prefix("about:preferences"),
+  url-prefix("about:privatebrowsing"),
+  url-prefix("about:processes"),
+  url-prefix("about:profiles"),
+  url-prefix("about:profiling"),
+  url-prefix("about:protections"),
+  url-prefix("about:restartrequired"),
+  url-prefix("about:restricted"),
+  url-prefix("about:rights"),
+  url-prefix("about:robots"),
+  url-prefix("about:serviceworkers"),
+  url-prefix("about:sessionrestore"),
+  url-prefix("about:settings"),
+  url-prefix("about:studies"),
+  url-prefix("about:support"),
+  url-prefix("about:sync-log"),
+  url-prefix("about:tabcrashed"),
+  url-prefix("about:telemetry"),
+  url-prefix("about:translations"),
+  url-prefix("about:unloads"),
+  url-prefix("about:url-classifier"),
+  url-prefix("about:webauthn"),
+  url-prefix("about:webrtc"),
+  url-prefix("about:welcome"),
+  url-prefix("about:welcomeback"),
   url-prefix("chrome://mozapps/content/extensions/aboutaddons.html"),
   url-prefix("chrome://browser/content/firefoxview/firefoxview.html"),
   url-prefix("chrome://browser/content/customkeys/customkeys.html"),
-  url-prefix("chrome://browser/content/preferences/preferences.xhtml") {
+  url-prefix("chrome://browser/content/preferences/preferences.xhtml"),
+  url-prefix("chrome://browser/content/profiles/"),
+  url-prefix("chrome://browser/content/backup/"),
+  url-prefix("chrome://browser/content/policies/"),
+  url-prefix("chrome://browser/content/aboutlogins/"),
+  url-prefix("chrome://browser/content/genai/") {
 
   :root,
   :root.nova-tokens,
   html.private {
-    /* Pure White Canvas & Backgrounds (Neutralizes Nova grayish-violet #f7f6fb and pastel gradients) */
-    --background-color-canvas: light-dark(#ffffff, #2b2a33) !important;
-    --background-color-box: light-dark(#ffffff, #2b2a33) !important;
-    --in-content-page-background: light-dark(#ffffff, #2b2a33) !important;
-    --in-content-box-background: light-dark(#ffffff, #2b2a33) !important;
+    /* Native Proton Neutral Gray Palette (neutralizes Nova's darker #121114 / #252428 grays) */
+    --color-gray-0: #fbfbfe !important;
+    --color-gray-20: #f0f0f4 !important;
+    --color-gray-50: #bfbfc9 !important;
+    --color-gray-60: #8f8f9d !important;
+    --color-gray-70: #5b5b66 !important;
+    --color-gray-80: #23222b !important;
+    --color-gray-90: #1c1b22 !important;
+    --color-gray-100: #15141a !important;
+
+    /* Proton Canvas, Box, and Border Tokens:
+       - Internal page canvas: #ffffff Light / #1c1b22 Dark (neutralizes Nova #f7f6fb / #131215)
+       - Boxes & cards: #ffffff Light / #23222b Dark (preserves field/card contrast on #1c1b22) */
+    --background-color-canvas: light-dark(#ffffff, #1c1b22) !important;
+    --background-color-box: light-dark(#ffffff, #23222b) !important;
+    --background-color-box-info: light-dark(#f0f0f4, #23222b) !important;
+    --in-content-page-background: light-dark(#ffffff, #1c1b22) !important;
+    --in-content-box-background: light-dark(#ffffff, #23222b) !important;
     --tabpanel-background-color: light-dark(#ffffff, #2b2a33) !important;
+    --border-color: light-dark(#bfbfc9, #5b5b66) !important;
+    --border-color-deemphasized: color-mix(in srgb, currentColor 24%, transparent) !important;
+    --border-color-interactive: light-dark(#8f8f9d, #bfbfc9) !important;
+    --table-border-color: color-mix(in srgb, currentColor 41%, transparent) !important;
+    --table-row-background-color-alternate: light-dark(#f0f0f4, #23222b) !important;
+    --input-background-color: light-dark(#ffffff, #42414d) !important;
 
     /* Neutralize Nova gradient tokens across native pages (keeps custom New Tab wallpapers working) */
     --toolbox-background-gradient: none !important;
     --toolbox-background-gradient-leading: transparent !important;
     --toolbox-background-gradient-trailing: transparent !important;
     --fxview-background-color: light-dark(#ffffff, #2b2a33) !important;
-    --fxview-background-color-secondary: light-dark(#ffffff, #2b2a33) !important;
+    --fxview-background-color-secondary: light-dark(#ffffff, #42414d) !important;
     --newtab-background-color: light-dark(#ffffff, #2b2a33) !important;
     --mr-welcome-background-gradient: none !important;
     --mr-smart-window-background-gradient: none !important;
@@ -73,12 +134,18 @@
     --link-color-hover: var(--color-accent-primary-hover) !important;
     --link-color-active: var(--color-accent-primary-active) !important;
 
-    /* Neutral text & buttons */
+    /* Neutral text & buttons (in-content Proton tokens-brand.css & tokens-shared.css values) */
     --text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
+    --text-color-accent-primary-selected: light-dark(#ffffff, #15141a) !important;
     --button-text-color: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
-    --button-background-color: light-dark(rgba(207, 207, 216, 0.33), rgba(0, 0, 0, 0.33)) !important;
-    --button-background-color-hover: light-dark(rgba(207, 207, 216, 0.66), rgba(207, 207, 216, 0.2)) !important;
-    --button-background-color-active: light-dark(rgb(207, 207, 216), rgba(207, 207, 216, 0.4)) !important;
+    --button-background-color: color-mix(in srgb, currentColor 7%, transparent) !important;
+    --button-background-color-hover: color-mix(in srgb, currentColor 14%, transparent) !important;
+    --button-background-color-active: color-mix(in srgb, currentColor 21%, transparent) !important;
+    --button-background-color-ghost: transparent !important;
+    --button-background-color-ghost-hover: var(--button-background-color-hover) !important;
+    --button-background-color-ghost-active: var(--button-background-color-active) !important;
+    --button-background-color-ghost-disabled: transparent !important;
+    --button-background-color-ghost-selected: var(--button-background-color-ghost-active) !important;
 
     /* Toggles */
     --toggle-background-color-pressed: var(--color-accent-primary) !important;
@@ -98,13 +165,13 @@
     --promo-message-text-color-vibrant: light-dark(rgb(21, 20, 26), rgb(251, 251, 254)) !important;
 
     /* Proton Card Tokens (Neutralizes Nova gray accordion header & restore Proton white card + 1px border) */
-    --card-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    --card-background-color: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
     --card-header-background-color: transparent !important;
     --card-header-background-color-hover: var(--button-background-color-hover) !important;
     --card-header-background-color-active: var(--button-background-color-active) !important;
     --card-header-border-color: transparent !important;
     --card-header-text-color: var(--button-text-color) !important;
-    --card-border-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1)) !important;
+    --card-border-color: light-dark(color-mix(in srgb, currentColor 10%, transparent), color-mix(in srgb, currentColor 6%, transparent)) !important;
     --card-border: 1px solid var(--card-border-color) !important;
 
     /* Proton Border Radii */
@@ -121,6 +188,8 @@
     --page-nav-button-border-radius: var(--border-radius-medium, 8px) !important;
     --promo-border-radius: var(--border-radius-medium, 8px) !important;
     --input-search-border-radius: var(--border-radius-medium, 8px) !important;
+    --input-icon-size: var(--icon-size-xsmall, 12px) !important;
+    --input-search-icon-size: var(--icon-size-xsmall, 12px) !important;
   }
 
   /* Information Banners & Message Bars across internal pages */
@@ -131,12 +200,12 @@
 
   moz-message-bar,
   .discopane-notice {
-    --message-bar-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    --message-bar-background-color: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
     --message-bar-icon-color: light-dark(#0061e0, #00cadb) !important;
     --message-bar-icon-background-color: light-dark(#edf5ff, #1c2438) !important;
     --message-bar-border-color: light-dark(rgba(0, 97, 224, 0.2), rgba(0, 202, 219, 0.2)) !important;
     --message-bar-border-radius: var(--border-radius-medium, 8px) !important;
-    background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    background-color: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
   }
 
   /* ------------------------------------------------------------------------
@@ -185,6 +254,38 @@
     --panel-menuitem-border-radius: var(--border-radius-small, 4px) !important;
     --badge-border-radius: var(--border-radius-small, 4px) !important;
     --promo-border-radius: var(--border-radius-medium, 8px) !important;
+  }
+
+  /* Restore Proton page-nav styling (about:addons, about:preferences):
+     beats :host Nova rules inside moz-page-nav / moz-page-nav-button Shadow DOM */
+  moz-page-nav,
+  moz-page-nav-button {
+    --page-nav-button-background-color: var(--button-background-color-ghost, transparent) !important;
+    --page-nav-button-background-color-hover: var(--button-background-color-ghost-hover, color-mix(in srgb, currentColor 10%, transparent)) !important;
+    --page-nav-button-background-color-active: var(--button-background-color-ghost-active, color-mix(in srgb, currentColor 18%, transparent)) !important;
+    --page-nav-button-background-color-selected: color-mix(in srgb, currentColor 8%, transparent) !important;
+    --page-nav-button-border-color: unset !important;
+    --page-nav-button-border-radius: var(--button-border-radius, var(--border-radius-medium, 8px)) !important;
+    --page-nav-button-border-radius-focused: var(--border-radius-small, 4px) !important;
+    --page-nav-button-indicator-background-color: var(--color-accent-primary) !important;
+    --page-nav-button-indicator-width: 4px !important;
+    --page-nav-button-padding: var(--space-small) var(--space-medium) !important;
+    --page-nav-button-padding-small: var(--space-small) !important;
+    --page-nav-button-text-color-selected: var(--color-accent-primary) !important;
+    --page-nav-focus-outline-offset: var(--focus-outline-inset) !important;
+    --page-nav-focus-padding: 0px !important;
+    --page-nav-hr-background-color: var(--border-color) !important;
+  }
+
+  /* Restore Proton moz-select border & sizing (moz-select.tokens.css) */
+  moz-select {
+    --select-border-color: var(--button-border-color, transparent) !important;
+    --select-border-color-hover: var(--button-border-color-hover, transparent) !important;
+    --select-border-color-disabled: var(--button-border-color-disabled, transparent) !important;
+    --select-border-radius: var(--button-border-radius, var(--border-radius-medium, 8px)) !important;
+    --select-padding-block: var(--space-small) !important;
+    --select-space-inline: var(--space-large) !important;
+    --select-space-inline-small: var(--space-large) !important;
   }
 
   /* Nova promos in internal pages (about:preferences, about:addons) */
@@ -236,35 +337,73 @@
   }
 }
 
-/* Force plain Proton canvas on internal pages (excludes about:newtab / about:home so custom wallpapers work) */
+/* Force plain Proton canvas on internal pages (#1c1b22 dark; excludes about:newtab / about:home for wallpapers and about:firefoxview / about:privatebrowsing which keep #2b2a33) */
 @-moz-document
+  url-prefix("about:about"),
   url-prefix("about:addons"),
-  url-prefix("about:preferences"),
-  url-prefix("about:firefoxview"),
-  url-prefix("about:welcome"),
-  url-prefix("about:privatebrowsing"),
-  url-prefix("about:keyboard"),
-  url-prefix("about:protections"),
-  url-prefix("about:logins"),
+  url-prefix("about:blocked"),
+  url-prefix("about:buildconfig"),
+  url-prefix("about:cache"),
+  url-prefix("about:certificate"),
+  url-prefix("about:certerror"),
+  url-prefix("about:checkerboard"),
+  url-prefix("about:compat"),
   url-prefix("about:config"),
-  url-prefix("about:support"),
-  url-prefix("about:profiles"),
-  url-prefix("about:downloads"),
-  url-prefix("about:policies"),
-  url-prefix("about:networking"),
-  url-prefix("about:processes"),
-  url-prefix("about:memory"),
-  url-prefix("about:studies"),
-  url-prefix("about:telemetry"),
   url-prefix("about:crashes"),
+  url-prefix("about:credits"),
+  url-prefix("about:debugging"),
+  url-prefix("about:deleteprofile"),
+  url-prefix("about:downloads"),
+  url-prefix("about:editprofile"),
+  url-prefix("about:framecrashed"),
+  url-prefix("about:glean"),
+  url-prefix("about:httpsonlyerror"),
+  url-prefix("about:keyboard"),
+  url-prefix("about:license"),
+  url-prefix("about:logging"),
+  url-prefix("about:logins"),
+  url-prefix("about:memory"),
+  url-prefix("about:neterror"),
+  url-prefix("about:networking"),
+  url-prefix("about:newprofile"),
+  url-prefix("about:pdf"),
+  url-prefix("about:plugins"),
+  url-prefix("about:policies"),
+  url-prefix("about:preferences"),
+  url-prefix("about:processes"),
+  url-prefix("about:profiles"),
+  url-prefix("about:profiling"),
+  url-prefix("about:protections"),
+  url-prefix("about:restartrequired"),
+  url-prefix("about:restricted"),
+  url-prefix("about:rights"),
+  url-prefix("about:robots"),
+  url-prefix("about:serviceworkers"),
+  url-prefix("about:sessionrestore"),
+  url-prefix("about:settings"),
+  url-prefix("about:studies"),
+  url-prefix("about:support"),
+  url-prefix("about:sync-log"),
+  url-prefix("about:tabcrashed"),
+  url-prefix("about:telemetry"),
+  url-prefix("about:translations"),
+  url-prefix("about:unloads"),
+  url-prefix("about:url-classifier"),
+  url-prefix("about:webauthn"),
+  url-prefix("about:webrtc"),
+  url-prefix("about:welcome"),
+  url-prefix("about:welcomeback"),
   url-prefix("chrome://mozapps/content/extensions/aboutaddons.html"),
-  url-prefix("chrome://browser/content/firefoxview/firefoxview.html"),
   url-prefix("chrome://browser/content/customkeys/customkeys.html"),
-  url-prefix("chrome://browser/content/preferences/preferences.xhtml") {
+  url-prefix("chrome://browser/content/preferences/preferences.xhtml"),
+  url-prefix("chrome://browser/content/profiles/"),
+  url-prefix("chrome://browser/content/backup/"),
+  url-prefix("chrome://browser/content/policies/"),
+  url-prefix("chrome://browser/content/aboutlogins/") {
 
   html,
   body {
-    background-color: light-dark(#ffffff, #2b2a33) !important;
+    background-color: light-dark(#ffffff, #1c1b22) !important;
     background-image: none !important;
   }
 }
@@ -315,10 +454,10 @@
   /* AI Controls Card (about:preferences#ai) - Neutralizes violet card & Nova illustration */
   .ai-controls-description,
   moz-card.ai-controls-description {
-    --ai-controls-description-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
-    --card-background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    --ai-controls-description-background-color: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
+    --card-background-color: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
     --ai-controls-description-image-margin: 0px !important;
-    background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    background-color: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
     border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1)) !important;
   }
 
@@ -377,7 +516,7 @@
 @-moz-document url-prefix("about:welcome") {
   .screen,
   .container {
-    background: light-dark(#ffffff, #2b2a33) !important;
+    background: var(--background-color-canvas, light-dark(#ffffff, #1c1b22)) !important;
     background-image: none !important;
   }
 }
@@ -431,7 +570,7 @@
 @-moz-document url-prefix("about:keyboard"), url-prefix("chrome://browser/content/customkeys/customkeys.html") {
   moz-card,
   moz-card.category {
-    background-color: var(--background-color-box, light-dark(#ffffff, #2b2a33)) !important;
+    background-color: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
     border: 1px solid var(--card-border-color) !important;
     border-radius: 8px !important;
   }

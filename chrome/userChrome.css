@@ -78,10 +78,18 @@ panel,
   --promo-border-radius: var(--border-radius-medium, 8px) !important;
   --trustpanel-highlight-bg: light-dark(rgba(0, 97, 224, 0.08), rgba(0, 202, 219, 0.12)) !important;
 
-  /* Canvas & Content Backdrop: PURE WHITE (#ffffff) Light / Proton #2b2a33 Dark */
-  --background-color-canvas: light-dark(#ffffff, #2b2a33) !important;
-  --background-color-box: light-dark(#ffffff, #2b2a33) !important;
+  /* Canvas, Box & Sidebar Backdrops:
+     - Canvas & Sidebar: PURE WHITE (#ffffff) Light / Proton #1c1b22 Dark
+     - Box/Cards: PURE WHITE (#ffffff) Light / Proton #23222b Dark
+     - Tabpanel: PURE WHITE (#ffffff) Light / Proton #2b2a33 Dark
+     - Chrome Inputs: PURE WHITE (#ffffff) Light / Proton #42414d Dark */
+  --background-color-canvas: light-dark(#ffffff, #1c1b22) !important;
+  --background-color-box: light-dark(#ffffff, #23222b) !important;
   --tabpanel-background-color: light-dark(#ffffff, #2b2a33) !important;
+  --input-background-color: light-dark(#ffffff, #42414d) !important;
+  --sidebar-background-color: light-dark(#ffffff, rgb(28, 27, 34)) !important;
+  --sidebar-text-color: light-dark(rgb(21, 20, 26), rgb(249, 249, 250)) !important;
+  --sidebar-border-color: light-dark(color-mix(in srgb, currentColor 10%, transparent), color-mix(in srgb, currentColor 6%, transparent)) !important;
 
   /* Focus Outline (Proton Blue #0061e0 in Light, Cyan #00ddff in Dark - NOT Nova Purple) */
   --focus-outline-color: light-dark(#0061e0, #00ddff) !important;
@@ -160,6 +168,8 @@ panel,
   --button-background-color-ghost: transparent !important;
   --button-background-color-ghost-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
   --button-background-color-ghost-active: color-mix(in srgb, currentColor 18%, transparent) !important;
+  --button-background-color-ghost-disabled: transparent !important;
+  --button-background-color-ghost-selected: var(--button-background-color-ghost-active) !important;
 
   /* Menus & Subviews (.subviewbutton & panelUI items neutral hover) */
   --button-background-color-menu-hover: color-mix(in srgb, currentColor 10%, transparent) !important;
@@ -492,6 +502,13 @@ body:-moz-window-inactive,
 toolbar.browser-titlebar:-moz-window-inactive {
   background-color: var(--toolbox-background-color-inactive) !important;
   background-image: none !important;
+}
+
+@media not -moz-pref("sidebar.verticalTabs") {
+  #browser {
+    background-color: var(--toolbar-background-color) !important;
+    color: var(--toolbar-text-color) !important;
+  }
 }
 
 #nav-bar {
@@ -1194,15 +1211,136 @@ input[type="radio"]:checked {
 /* --------------------------------------------------------------------------
    8. SIDEBAR & SPLITTERS
    -------------------------------------------------------------------------- */
-#sidebar-box {
+/* Restore Proton floating sidebar card when sidebar.revamp is enabled:
+   transparent #sidebar-box exposes #browser toolbar color behind the header
+   and bottom margin, while #sidebar renders the rounded/outlined card */
+@media -moz-pref("sidebar.revamp") {
+  #sidebar-box {
+    background-color: transparent !important;
+    color: var(--toolbar-text-color) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding-block-end: var(--space-small, 8px) !important;
+  }
+
+  #sidebar,
+  [panel-has-custom-header] + .sidebar-browser-stack > #sidebar {
+    background-color: var(--sidebar-background-color) !important;
+    color: var(--sidebar-text-color) !important;
+    border-radius: var(--border-radius-medium, 8px) !important;
+    box-shadow: var(--content-area-shadow) !important;
+    outline: 0.5px solid var(--sidebar-border-color) !important;
+    overflow: clip !important;
+  }
+
+  /* Restore Proton 12px gap (--space-medium) between #sidebar and content area
+     (Nova shrinks #sidebar-splitter to 2px/4px and drops border-inline) */
+  #sidebar-splitter {
+    --splitter-width: 4px !important;
+    width: var(--space-medium, 0.75rem) !important;
+    border-inline: calc((var(--space-medium, 0.75rem) - var(--splitter-width)) / 2) solid transparent !important;
+    background-clip: padding-box !important;
+    margin-block-end: var(--space-small, 0.5rem) !important;
+  }
+
   @media (-moz-overlay-scrollbars) {
-    --splitter-width: 2px !important;
+    #sidebar-splitter {
+      --splitter-width: 2px !important;
+    }
+  }
+}
+
+@media not -moz-pref("sidebar.revamp") {
+  #sidebar-box {
+    background-color: var(--sidebar-background-color) !important;
+    color: var(--sidebar-text-color) !important;
   }
 }
 
 #sidebar-splitter,
 #sidebar-launcher-splitter {
   border-radius: 0 !important;
+}
+
+/* Open Tabs hover preview popup: inherit 8px row radius instead of Nova 9999px pill */
+sidebar-opentabs-preview {
+  --border-radius-circle: var(--border-radius-medium, 8px) !important;
+}
+
+/* Sidebar HTML panels (<browser id="sidebar"> has no type="content", so it loads userChrome.css) */
+@-moz-document url-prefix("chrome://browser/content/sidebar/") {
+  :root,
+  :root.nova-tokens,
+  :root:-moz-window-inactive,
+  body,
+  body:-moz-window-inactive {
+    appearance: none !important;
+    -moz-default-appearance: none !important;
+    background-color: var(--sidebar-background-color) !important;
+    background-image: none !important;
+    color: var(--sidebar-text-color) !important;
+  }
+
+  :root[lwt-sidebar="light"],
+  :root[lwt-sidebar="light"] body {
+    color-scheme: light !important;
+  }
+
+  :root[lwt-sidebar="dark"],
+  :root[lwt-sidebar="dark"] body {
+    color-scheme: dark !important;
+  }
+
+  :root,
+  :root.nova-tokens,
+  sidebar-history,
+  sidebar-bookmarks,
+  sidebar-opentabs,
+  sidebar-syncedtabs,
+  sidebar-customize {
+    --sidebar-background-color: light-dark(#ffffff, rgb(28, 27, 34)) !important;
+    --sidebar-text-color: light-dark(rgb(21, 20, 26), rgb(249, 249, 250)) !important;
+    --sidebar-box-background: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
+    --sidebar-box-border: 0.5px solid light-dark(rgba(0, 0, 0, 0.1), var(--border-color-deemphasized, rgba(255, 255, 255, 0.1))) !important;
+
+    /* Native Proton search input (#42414d dark, 8px corners & 12px search icon vs Nova pill & 16px) */
+    --input-background-color: light-dark(#ffffff, #42414d) !important;
+    --input-border-radius: var(--border-radius-medium, 8px) !important;
+    --input-search-border-radius: var(--border-radius-medium, 8px) !important;
+    --input-icon-size: var(--icon-size-xsmall, 12px) !important;
+    --input-search-icon-size: var(--icon-size-xsmall, 12px) !important;
+
+    /* Proton sidebar card styling */
+    --card-border-radius: var(--border-radius-medium, 8px) !important;
+    --card-box-shadow: none !important;
+  }
+
+  /* Override --border-radius-circle locally on list panel hosts so nested Shadow DOM rows
+     (sidebar-tab-row, sidebar-bookmark-row) use Proton 8px/4px instead of Nova 9999px pill */
+  sidebar-history,
+  sidebar-opentabs,
+  sidebar-syncedtabs {
+    --border-radius-circle: var(--border-radius-medium, 8px) !important;
+  }
+
+  sidebar-bookmarks {
+    --border-radius-circle: var(--border-radius-small, 4px) !important;
+  }
+
+  sidebar-history,
+  sidebar-bookmarks,
+  sidebar-opentabs,
+  sidebar-syncedtabs,
+  sidebar-customize {
+    display: block !important;
+    box-sizing: border-box !important;
+    height: 100% !important;
+    /* Compensate Nova .sidebar-panel padding-block-start: var(--space-small) -> total 16px (--space-large) */
+    padding-block-start: var(--space-small, 0.5rem) !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    color: var(--sidebar-text-color) !important;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1283,7 +1421,7 @@ findbar .findbar-closebutton {
 }
 
 /* --------------------------------------------------------------------------
-   12. BROWSER CONTENT AREA & SPLIT VIEWS (Proton square viewport, not Nova curved corners)
+   12. BROWSER CONTENT AREA & SPLIT VIEWS (Proton viewport border, shadow & sidebar corner)
    -------------------------------------------------------------------------- */
 #tabbrowser-tabpanels .browserContainer,
 #tabbrowser-tabpanels > :not(.split-view-panel) .browserContainer,
@@ -1292,9 +1430,64 @@ findbar .findbar-closebutton {
   border-radius: 0px !important;
   border-start-start-radius: 0px !important;
   border-start-end-radius: 0px !important;
+  border-block-start: none !important;
+  border-inline-start: none !important;
+  border-inline-end: none !important;
   --content-scrollbar-inset-block: 0px !important;
   --content-scrollbar-inset-inline-start: 0px !important;
   --content-scrollbar-inset-inline-end: 0px !important;
+}
+
+#tabbrowser-tabpanels .dialogOverlay[topmost="true"] {
+  border-radius: 0px !important;
+  border-start-start-radius: 0px !important;
+  border-start-end-radius: 0px !important;
+}
+
+@media -moz-pref("sidebar.revamp") {
+  #tabbrowser-tabpanels > :not(.split-view-panel) .browserContainer {
+    outline: 0.01px solid var(--chrome-content-separator-color) !important;
+    box-shadow: var(--content-area-shadow) !important;
+    overflow: clip !important;
+  }
+
+  /* Match native Proton content-area.css: round only the sidebar-adjacent top corner */
+  :root:not([inDOMFullscreen]) #tabbrowser-tabbox[sidebar-shown] #tabbrowser-tabpanels > :not(.split-view-panel) .browserContainer {
+    @media -moz-pref("sidebar.position_start") {
+      border-start-start-radius: var(--border-radius-medium, 8px) !important;
+      border-start-end-radius: 0px !important;
+    }
+
+    @media not -moz-pref("sidebar.position_start") {
+      border-start-start-radius: 0px !important;
+      border-start-end-radius: var(--border-radius-medium, 8px) !important;
+    }
+  }
+
+  :root:not([inDOMFullscreen]) #tabbrowser-tabbox[sidebar-shown] .browserSidebarContainer:not(.responsive-mode) .dialogOverlay[topmost="true"] {
+    @media -moz-pref("sidebar.position_start") {
+      border-start-start-radius: var(--border-radius-medium, 8px) !important;
+      border-start-end-radius: 0px !important;
+    }
+
+    @media not -moz-pref("sidebar.position_start") {
+      border-start-start-radius: 0px !important;
+      border-start-end-radius: var(--border-radius-medium, 8px) !important;
+    }
+  }
+}
+
+#tabbrowser-tabpanels[splitview] .split-view-panel > .browserContainer {
+  border: none !important;
+}
+
+#tabbrowser-tabpanels[splitview] .split-view-panel.deck-selected > .browserContainer {
+  outline-width: var(--focus-outline-width, 2px) !important;
+}
+
+#tabbrowser-tabpanels[splitview] .split-view-panel:not(.deck-selected) > .browserContainer split-view-footer {
+  inset-block-end: 0 !important;
+  inset-inline-end: 0 !important;
 }
 
 tab-split-view-wrapper {
