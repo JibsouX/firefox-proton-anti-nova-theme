@@ -516,9 +516,12 @@ toolbar.browser-titlebar:-moz-window-inactive {
   box-shadow: none !important;
 }
 
-#tabbrowser-tabpanels,
+#tabbrowser-tabpanels {
+  background-color: transparent !important;
+}
+
 #tabbrowser-tabpanels .browserContainer {
-  background-color: light-dark(#ffffff, #2b2a33) !important;
+  background: var(--tabpanel-background-color, light-dark(#ffffff, #2b2a33)) padding-box !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -1267,13 +1270,24 @@ sidebar-opentabs-preview {
   --border-radius-circle: var(--border-radius-medium, 8px) !important;
 }
 
-/* Sidebar HTML panels (<browser id="sidebar"> has no type="content", so it loads userChrome.css) */
-@-moz-document url-prefix("chrome://browser/content/sidebar/") {
+/* Sidebar HTML, Toolkit Megalist, GenAI & legacy XUL panels (<browser id="sidebar"> has no type="content", so it loads userChrome.css) */
+@-moz-document
+  url-prefix("chrome://browser/content/sidebar/"),
+  url-prefix("chrome://browser/content/places/bookmarksSidebar.xhtml"),
+  url-prefix("chrome://browser/content/places/historySidebar.xhtml"),
+  url-prefix("chrome://browser/content/syncedtabs/sidebar.html"),
+  url-prefix("chrome://global/content/megalist/"),
+  url-prefix("chrome://browser/content/genai/"),
+  url-prefix("chrome://browser/content/webext-panels.xhtml") {
   :root,
   :root.nova-tokens,
   :root:-moz-window-inactive,
   body,
-  body:-moz-window-inactive {
+  body:-moz-window-inactive,
+  window.sidebar-panel,
+  window.sidebar-panel:-moz-window-inactive,
+  window#webextpanels-window,
+  window#webextpanels-window:-moz-window-inactive {
     appearance: none !important;
     -moz-default-appearance: none !important;
     background-color: var(--sidebar-background-color) !important;
@@ -1297,11 +1311,37 @@ sidebar-opentabs-preview {
   sidebar-bookmarks,
   sidebar-opentabs,
   sidebar-syncedtabs,
-  sidebar-customize {
+  sidebar-customize,
+  megalist-alpha,
+  password-card,
+  login-form,
+  login-line,
+  concealed-login-line,
+  notification-message-bar {
     --sidebar-background-color: light-dark(#ffffff, rgb(28, 27, 34)) !important;
     --sidebar-text-color: light-dark(rgb(21, 20, 26), rgb(249, 249, 250)) !important;
-    --sidebar-box-background: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
-    --sidebar-box-border: 0.5px solid light-dark(rgba(0, 0, 0, 0.1), var(--border-color-deemphasized, rgba(255, 255, 255, 0.1))) !important;
+    --sidebar-box-background: light-dark(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.05)) !important;
+    --sidebar-box-color: currentColor !important;
+    --sidebar-box-border-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.24)) !important;
+    --sidebar-box-border-width: 0.5px !important;
+    --sidebar-box-border: var(--sidebar-box-border-width) solid var(--sidebar-box-border-color) !important;
+
+    /* In-content / sidebar standard buttons & neutral Proton borders/status colors */
+    --button-background-color: color-mix(in srgb, currentColor 7%, transparent) !important;
+    --button-background-color-hover: color-mix(in srgb, currentColor 14%, transparent) !important;
+    --button-background-color-active: color-mix(in srgb, currentColor 21%, transparent) !important;
+    --border-color: light-dark(#bfbfc9, #5b5b66) !important;
+    --border-color-interactive: light-dark(#8f8f9d, #bfbfc9) !important;
+    --color-accent-attention: light-dark(#2ac3a2, #54ffbd) !important;
+    --icon-color: light-dark(#5b5b66, #fbfbfe) !important;
+    --icon-color-critical: light-dark(oklch(55% 0.21 15), oklch(83% 0.14 15)) !important;
+    --icon-color-information: light-dark(oklch(55% 0.24 260), oklch(83% 0.17 260)) !important;
+    --icon-color-success: light-dark(oklch(55% 0.21 145), oklch(83% 0.14 145)) !important;
+    --icon-color-warning: light-dark(oklch(58% 0.24 90), oklch(86% 0.14 90)) !important;
+    --background-color-warning: light-dark(oklch(97% 0.05 90), oklch(34% 0.17 90)) !important;
+    --background-color-critical: light-dark(oklch(97% 0.05 15), oklch(34% 0.14 15)) !important;
+    --background-color-information: light-dark(oklch(97% 0.05 260), oklch(34% 0.14 260)) !important;
+    --background-color-success: light-dark(oklch(97% 0.05 145), oklch(34% 0.14 145)) !important;
 
     /* Native Proton search input (#42414d dark, 8px corners & 12px search icon vs Nova pill & 16px) */
     --input-background-color: light-dark(#ffffff, #42414d) !important;
@@ -1340,6 +1380,55 @@ sidebar-opentabs-preview {
     background-color: transparent !important;
     background-image: none !important;
     color: var(--sidebar-text-color) !important;
+  }
+}
+
+/* Restore Proton moz-card border, padding, and backdrop inside sidebar Shadow DOMs
+   (neutralizes Nova border: none / --card-padding: 0 in sidebar.css) */
+@-moz-document url-prefix("chrome://browser/content/sidebar/") {
+  moz-card:not(.nested-card):not(.promo-card) {
+    --card-background-color: var(--background-color-box, light-dark(#ffffff, #23222b)) !important;
+    --card-padding: 8px !important;
+    --card-heading-padding-inline: 12px !important;
+    background-color: var(--card-background-color) !important;
+    border: var(--sidebar-box-border, 0.5px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.24))) !important;
+    border-radius: var(--border-radius-medium, 8px) !important;
+  }
+
+  moz-card:not(.nested-card):not(.promo-card)::part(moz-card-heading-wrapper) {
+    padding-inline: var(--card-heading-padding-inline, 12px) !important;
+  }
+}
+
+/* Restore Proton boxed groups, spacing, and row dividers in sidebar-customize.html
+   (neutralizes @media not -moz-pref("browser.nova.enabled") guards in sidebar-customize.css) */
+@-moz-document url-prefix("chrome://browser/content/sidebar/sidebar-customize.html") {
+  .medium-top-margin {
+    margin-block-start: var(--space-medium, 12px) !important;
+  }
+
+  .extensions,
+  moz-fieldset::part(inputs),
+  fieldset > #inputs[part="inputs"] {
+    background-color: var(--sidebar-box-background, light-dark(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.05))) !important;
+    border: var(--sidebar-box-border, 0.5px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.24))) !important;
+    border-radius: var(--border-radius-medium, 8px) !important;
+  }
+
+  moz-checkbox {
+    padding-block: 8px !important;
+  }
+
+  moz-checkbox:not(:last-of-type) {
+    border-bottom: 0.5px solid var(--panel-separator-color, color-mix(in srgb, currentColor 25%, transparent)) !important;
+  }
+
+  moz-checkbox > moz-checkbox:last-of-type {
+    padding-block: 0 !important;
+  }
+
+  moz-checkbox:is(#expand-on-hover, #hide-sidebar) {
+    margin-block-start: 0 !important;
   }
 }
 
