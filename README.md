@@ -56,13 +56,14 @@ https://github.com/user-attachments/assets/ae886d5d-e59d-487f-9e87-dbf26a0b8484
    - Open a new tab and go to `about:config`.
    - Accept the warning if prompted.
    - Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to **`true`**.
+   - Search for `svg.context-properties.content.enabled` and set it to **`true`**.
 
 2. **Open your Firefox profile folder:**
    - Go to `about:support`.
    - Find the **Profile Folder** row and click **Open Folder** (or **Show in Finder** on macOS).
 
 3. **Install the theme:**
-   - Download or clone this repository (`firefox-proton-anti-nova-theme`).
+   - Download the [latest release](https://github.com/JibsouX/firefox-proton-anti-nova-theme/releases).
    - Copy the entire `chrome/` folder into your Firefox profile folder.
    - *(If you already have a `chrome/` folder, back it up first before replacing or merging its contents.)*
 
