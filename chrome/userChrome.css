@@ -716,16 +716,54 @@ panel[type="arrow"] {
   }
 }
 
-/* Container Tab Indicator (Context Line) properly preserved at the top of container tabs */
+/* Container Tab Indicator (Context Line) properly preserved at the top/end of container tabs
+   (neutralizes Nova position: absolute, inset-*, border-inline, and local border-color overrides) */
 .tabbrowser-tab[usercontextid] > .tab-stack > .tab-background > .tab-context-line {
   background: var(--identity-icon-color) !important;
   background-color: var(--identity-icon-color) !important;
   height: 2px !important;
-  border-block: none !important;
+  border: none !important;
   border-radius: var(--border-radius-xsmall, 2px) !important;
   margin: 0 calc(var(--tab-border-radius, 8px) / 2) !important;
   width: auto !important;
+  inset: auto !important;
   position: relative !important;
+}
+
+#tabbrowser-tabs[orient="vertical"] .tabbrowser-tab[usercontextid] > .tab-stack > .tab-background {
+  flex-direction: row-reverse !important;
+}
+
+#tabbrowser-tabs[orient="vertical"] .tabbrowser-tab[usercontextid] > .tab-stack > .tab-background > .tab-context-line {
+  height: auto !important;
+  width: 2px !important;
+  margin: calc(var(--tab-border-radius, 8px) / 2) 0 !important;
+}
+
+@media not (forced-colors) {
+  .tabbrowser-tab[usercontextid] {
+    --tab-border-color-accent: none !important;
+    --tab-border-color-selected-leading: transparent !important;
+    --tab-border-color-selected-trailing: transparent !important;
+  }
+
+  :root:is([theme-in-app], :not([lwtheme])) .tabbrowser-tab[usercontextid] {
+    --tab-border-color-selected: var(--toolbarbutton-outline-color-selected) !important;
+  }
+
+  :root[lwtheme]:not([theme-in-app]) .tabbrowser-tab[usercontextid] {
+    --tab-border-color-selected: var(--lwt-tab-line-color, currentColor) !important;
+  }
+
+  @media not (-moz-native-theme) {
+    :root:is([theme-in-app], :not([lwtheme])) .tabbrowser-tab[usercontextid] {
+      --tab-border-color-selected: transparent !important;
+    }
+  }
+
+  .tabbrowser-tab[usercontextid] > .tab-stack > .tab-background[multiselected] {
+    outline-color: var(--focus-outline-color) !important;
+  }
 }
 
 /* ==========================================================================
