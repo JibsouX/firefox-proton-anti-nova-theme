@@ -52,6 +52,8 @@ https://github.com/user-attachments/assets/ae886d5d-e59d-487f-9e87-dbf26a0b8484
 
 ## Installation
 
+**Prerequisite:** Use the latest version of Firefox
+
 1. **Enable custom stylesheets in Firefox:**
    - Open a new tab and go to `about:config`.
    - Accept the warning if prompted.
